@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WebGIS Zonasi Kerentanan Longsor – Kec. Panjang, Bandar Lampung</title>
+  <meta name="description" content="Prototipe WebGIS Zonasi Kerentanan Longsor Berbasis MaxEnt dan 3D Model untuk Kesiapsiagaan Bencana di Kecamatan Panjang, Bandar Lampung. Capstone Design Teknik Geologi ITERA 2026." />
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Inter:wght@400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ==========================================
+     LOADING SCREEN
+     ========================================== -->
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">
+      <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+        <circle cx="30" cy="30" r="28" stroke="#1D9E75" stroke-width="2"/>
+        <path d="M10 38 L22 20 L30 30 L38 18 L50 38 Z" fill="#1D9E75" opacity="0.8"/>
+        <path d="M10 38 L22 28 L30 34 L38 26 L50 38 Z" fill="#0F6E56"/>
+      </svg>
+    </div>
+    <div class="loader-bar-wrap"><div id="loader-bar"></div></div>
+    <p class="loader-text">Memuat WebGIS Kerentanan Longsor…</p>
+  </div>
+</div>
+
+<!-- ==========================================
+     NAVBAR
+     ========================================== -->
+<nav id="navbar">
+  <div class="nav-container">
+    <a href="#beranda" class="nav-brand">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+        <circle cx="18" cy="18" r="17" fill="#1D9E75"/>
+        <path d="M6 24 L13 12 L18 19 L23 11 L30 24 Z" fill="white" opacity="0.9"/>
+        <path d="M6 24 L13 18 L18 22 L23 16 L30 24 Z" fill="white" opacity="0.6"/>
+      </svg>
+      <span class="nav-brand-text">WebGIS Longsor<br><small>Kec. Panjang BL</small></span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#beranda" class="nav-link active">Beranda</a></li>
+      <li><a href="#tentang" class="nav-link">Tentang</a></li>
+      <li><a href="#peta" class="nav-link">Peta Interaktif</a></li>
+      <li><a href="#metode" class="nav-link">Metode</a></li>
+      <li><a href="#hasil" class="nav-link">Hasil</a></li>
+      <li><a href="#mitigasi" class="nav-link">Mitigasi</a></li>
+      <li><a href="#tim" class="nav-link">Tim</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ==========================================
+     SECTION 1: BERANDA / HERO
+     ========================================== -->
+<section id="beranda" class="hero">
+  <!-- 
+    KETERANGAN: Ganti class "hero-bg-pattern" dengan gambar foto aerial 
+    atau DEM Kecamatan Panjang. Caranya: tambahkan style di bawah ini 
+    pada tag <section>:
+    style="background-image: url('assets/foto-aerial-panjang.jpg')"
+    Ukuran ideal: 1920x1080px atau lebih besar.
+  -->
+  <div class="hero-overlay"></div>
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-content">
+    <div class="hero-badge fade-in">Capstone Design · Teknik Geologi ITERA · 2026</div>
+    <h1 class="hero-title fade-in">Peta Kerentanan Longsor<br>Kecamatan Panjang</h1>
+    <p class="hero-subtitle fade-in">
+      Berbasis Algoritma <em>Maximum Entropy</em> (MaxEnt) &amp; Model 3D Interaktif<br>
+      Untuk Kesiapsiagaan Bencana Masyarakat dan Pemerintah
+    </p>
+    <div class="hero-buttons fade-in">
+      <a href="#peta" class="btn btn-primary btn-lg">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+        Lihat Peta Interaktif
+      </a>
+      <a href="#hasil" class="btn btn-outline btn-lg">Unduh Peta PDF</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-chevron"></div>
+    <span>Gulir ke bawah</span>
+  </div>
+</section>
+
+<!-- ==========================================
+     STATS STRIP
+     ========================================== -->
+<section class="stats-strip">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card fade-in" style="--accent: #E24B4A">
+        <div class="stat-number" data-target="330" data-suffix="">330</div>
+        <div class="stat-label">Kejadian Longsor di Indonesia Tahun 2025 <small>(BNPB, 2025)</small></div>
+      </div>
+      <div class="stat-card fade-in" style="--accent: #EF9F27">
+        <div class="stat-number" data-target="49" data-suffix=".28%">49.28%</div>
+        <div class="stat-label">Wilayah Kec. Panjang Teridentifikasi Rawan Longsor <small>(Mas'ulah, 2024)</small></div>
+      </div>
+      <div class="stat-card fade-in" style="--accent: #378ADD">
+        <div class="stat-number" data-target="34" data-suffix="">34</div>
+        <div class="stat-label">Titik Kejadian Longsor Terdokumentasi Lapangan</div>
+      </div>
+      <div class="stat-card fade-in" style="--accent: #1D9E75">
+        <div class="stat-number" data-target="806" data-prefix="0." data-suffix="">0.806</div>
+        <div class="stat-label">Nilai AUC Model MaxEnt <small>(Kategori: Baik)</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SECTION 2: TENTANG PROYEK
+     ========================================== -->
+<section id="tentang" class="section section-light">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-tag">Tentang Proyek</span>
+      <h2>Mengapa Kecamatan Panjang Rawan Longsor?</h2>
+      <p class="section-desc">Memahami ancaman geologi di balik perbukitan Kecamatan Panjang</p>
+    </div>
+
+    <div class="two-col fade-in">
+      <div class="col-text">
+        <p>
+          Kecamatan Panjang terletak di pesisir timur Teluk Lampung dengan topografi bervariasi — dari dataran rendah pantai hingga perbukitan curam yang mencapai ketinggian signifikan. Wilayah ini dipengaruhi oleh 
+          <span class="tooltip-term" data-tip="Sesar adalah retakan besar pada kerak bumi di mana terjadi pergeseran. Sesar aktif masih bergerak dan dapat memicu gempa serta ketidakstabilan lereng.">Sesar Lampung–Panjang</span> 
+          yang aktif secara tektonik.
+        </p>
+        <p>
+          Litologi didominasi batuan vulkanik lapukan seperti 
+          <span class="tooltip-term" data-tip="Tuf adalah batuan yang terbentuk dari endapan abu vulkanik yang telah mengeras. Saat jenuh air, tuf menjadi sangat tidak stabil dan mudah longsor.">tuf</span> 
+          dan breksi dari 
+          <span class="tooltip-term" data-tip="Formasi Tarahan adalah satuan batuan berumur Tersier yang tersusun dari tuf padu dan breksi vulkanik, mendominasi geologi Kecamatan Panjang.">Formasi Tarahan</span>, 
+          yang tidak stabil saat jenuh air hujan. Kombinasi kemiringan lereng curam, tekanan pembangunan permukiman, dan alih fungsi lahan menjadikan wilayah ini masuk kategori <strong>Potensi Gerakan Tanah Menengah–Tinggi</strong> menurut 
+          <span class="tooltip-term" data-tip="PVMBG adalah Pusat Vulkanologi dan Mitigasi Bencana Geologi, lembaga pemerintah yang memetakan potensi gerakan tanah di seluruh Indonesia.">PVMBG</span> 
+          (2022–2026).
+        </p>
+        <p>
+          Website ini menyajikan hasil pemetaan ilmiah berbasis algoritma 
+          <span class="tooltip-term" data-tip="MaxEnt (Maximum Entropy) adalah algoritma pemodelan distribusi spasial yang belajar dari data kehadiran (lokasi longsor nyata) untuk memprediksi probabilitas di seluruh wilayah.">MaxEnt</span> 
+          sebagai panduan visual bagi masyarakat dan pemerintah kecamatan dalam upaya kesiapsiagaan bencana.
+        </p>
+
+        <div class="info-box info-warning fade-in">
+          <strong>⚠ Status PVMBG:</strong> Kecamatan Panjang dikategorikan sebagai zona Potensi Gerakan Tanah <strong>Menengah–Tinggi</strong> dalam laporan PVMBG periode Mei 2022–Mei 2026.
+        </div>
+
+        <div class="goal-list">
+          <div class="goal-item">
+            <div class="goal-icon" style="background:#E1F5EE; color:#1D9E75">🗺</div>
+            <div>
+              <strong>Tujuan 1:</strong> Menghasilkan peta kerentanan longsor berbasis MaxEnt dengan akurasi tinggi di Kecamatan Panjang
+            </div>
+          </div>
+          <div class="goal-item">
+            <div class="goal-icon" style="background:#E6F1FB; color:#378ADD">🔍</div>
+            <div>
+              <strong>Tujuan 2:</strong> Mengidentifikasi variabel lingkungan dominan penyebab longsor di wilayah penelitian
+            </div>
+          </div>
+          <div class="goal-item">
+            <div class="goal-icon" style="background:#FAEEDA; color:#EF9F27">📋</div>
+            <div>
+              <strong>Tujuan 3:</strong> Menyusun zonasi kerentanan sebagai rekomendasi mitigasi bencana dan tata ruang wilayah
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-visual fade-in">
+        <!-- 
+          KETERANGAN: Ganti <div class="map-placeholder"> di bawah ini 
+          dengan tag <img> yang menampilkan:
+          - Foto kegiatan survei lapangan, ATAU
+          - Screenshot peta lokasi penelitian dari QGIS
+          Contoh: <img src="assets/foto-survei.jpg" alt="Survei lapangan" class="rounded-img"/>
+          Ukuran ideal: 500x600px, format JPG/WebP
+        -->
+        <div class="map-placeholder">
+          <div class="map-placeholder-inner">
+            <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+              <circle cx="40" cy="30" r="18" stroke="#1D9E75" stroke-width="2" fill="#E1F5EE"/>
+              <path d="M40 48 L40 70" stroke="#1D9E75" stroke-width="2"/>
+              <circle cx="40" cy="30" r="6" fill="#1D9E75"/>
+            </svg>
+            <p>Kecamatan Panjang<br>Bandar Lampung</p>
+            <small>[ Tempatkan foto survei lapangan atau peta lokasi di sini ]<br>assets/foto-lokasi.jpg</small>
+          </div>
+        </div>
+
+        <div class="pvmbg-table fade-in">
+          <div class="table-title">Potensi Gerakan Tanah Lampung (PVMBG 2022–2026)</div>
+          <table>
+            <thead><tr><th>Kecamatan</th><th>Potensi</th></tr></thead>
+            <tbody>
+              <tr><td>Kemiling</td><td><span class="badge badge-amber">Menengah</span></td></tr>
+              <tr class="row-highlight"><td><strong>Panjang</strong></td><td><span class="badge badge-red">Menengah–Tinggi</span></td></tr>
+              <tr><td>Sukabumi</td><td><span class="badge badge-amber">Menengah</span></td></tr>
+              <tr><td>Tanjungkarang Barat</td><td><span class="badge badge-amber">Menengah</span></td></tr>
+              <tr><td>Telukbetung Barat</td><td><span class="badge badge-amber">Menengah</span></td></tr>
+              <tr><td>Telukbetung Selatan</td><td><span class="badge badge-amber">Menengah</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Zone preview cards -->
+    <h3 class="subsection-title fade-in">Tingkat Kerentanan Longsor di Kecamatan Panjang</h3>
+    <div class="zone-cards fade-in">
+      <a href="#peta" class="zone-card" style="--zone-color: #E24B4A; --zone-bg: #FCEBEB">
+        <div class="zone-card-top">
+          <span class="zone-label">Kerentanan Tinggi</span>
+          <span class="zone-prob">0.75–1.00</span>
+        </div>
+        <div class="zone-area">1.31 km² · <strong>9.90%</strong></div>
+        <div class="zone-loc">Kel. Pidada, Panjang Utara, Karang Maritim</div>
+        <div class="zone-note">Bersinggungan dengan permukiman padat dan Jalan Lintas Sumatera</div>
+      </a>
+      <a href="#peta" class="zone-card" style="--zone-color: #EF9F27; --zone-bg: #FAEEDA">
+        <div class="zone-card-top">
+          <span class="zone-label">Kerentanan Menengah</span>
+          <span class="zone-prob">0.50–0.75</span>
+        </div>
+        <div class="zone-area">2.19 km² · <strong>16.60%</strong></div>
+        <div class="zone-loc">Kel. Panjang Selatan, Way Lunik</div>
+        <div class="zone-note">Perlu kajian geoteknik sebelum pembangunan baru</div>
+      </a>
+      <a href="#peta" class="zone-card" style="--zone-color: #378ADD; --zone-bg: #E6F1FB">
+        <div class="zone-card-top">
+          <span class="zone-label">Kerentanan Rendah</span>
+          <span class="zone-prob">0.25–0.50</span>
+        </div>
+        <div class="zone-area">3.53 km² · <strong>26.74%</strong></div>
+        <div class="zone-loc">Kel. Ketapang</div>
+        <div class="zone-note">Waspada pada musim hujan ekstrem</div>
+      </a>
+      <a href="#peta" class="zone-card" style="--zone-color: #888780; --zone-bg: #F1EFE8">
+        <div class="zone-card-top">
+          <span class="zone-label">Sangat Rendah</span>
+          <span class="zone-prob">0.00–0.25</span>
+        </div>
+        <div class="zone-area">6.17 km² · <strong>46.76%</strong></div>
+        <div class="zone-loc">Kel. Srengsem, Ketapang Kuala</div>
+        <div class="zone-note">Dataran aluvial pesisir, relatif aman dari longsor</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SECTION 3: PETA INTERAKTIF
+     ========================================== -->
+<section id="peta" class="section section-dark-alt">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-tag" style="background:#E1F5EE;color:#0F6E56">Produk Utama</span>
+      <h2>Peta Interaktif Kerentanan Longsor</h2>
+      <p class="section-desc">Eksplorasi peta 2D dan model 3D terrain kerentanan longsor Kecamatan Panjang secara interaktif</p>
+    </div>
+
+    <!-- Map/3D Toggle -->
+    <div class="viewer-toggle fade-in">
+      <button class="toggle-btn active" id="btn-2d" onclick="switchViewer('2d')">
+        🗺 Peta 2D WebGIS
+      </button>
+      <button class="toggle-btn" id="btn-3d" onclick="switchViewer('3d')">
+        🌐 Model 3D Geoportal
+      </button>
+    </div>
+
+    <!-- ====== 2D LEAFLET MAP ====== -->
+    <div id="viewer-2d" class="viewer-panel fade-in">
+      <div class="map-wrap">
+        <div id="map2d"></div>
+
+        <!-- Layer control panel -->
+        <div class="layer-panel" id="layer-panel">
+          <div class="layer-panel-title">🗂 Kontrol Layer</div>
+          <div class="layer-group">
+            <div class="layer-group-label">Basemap</div>
+            <label class="layer-item">
+              <input type="radio" name="basemap" value="osm" checked onchange="changeBasemap(this.value)"> OpenStreetMap
+            </label>
+            <label class="layer-item">
+              <input type="radio" name="basemap" value="satellite" onchange="changeBasemap(this.value)"> Satellite (Esri)
+            </label>
+            <label class="layer-item">
+              <input type="radio" name="basemap" value="topo" onchange="changeBasemap(this.value)"> Topografi
+            </label>
+          </div>
+          <div class="layer-group">
+            <div class="layer-group-label">Zona Kerentanan</div>
+            <label class="layer-item">
+              <input type="checkbox" checked onchange="toggleLayer('tinggi', this.checked)">
+              <span class="layer-dot" style="background:#E24B4A"></span> Tinggi
+            </label>
+            <label class="layer-item">
+              <input type="checkbox" checked onchange="toggleLayer('menengah', this.checked)">
+              <span class="layer-dot" style="background:#EF9F27"></span> Menengah
+            </label>
+            <label class="layer-item">
+              <input type="checkbox" checked onchange="toggleLayer('rendah', this.checked)">
+              <span class="layer-dot" style="background:#378ADD"></span> Rendah
+            </label>
+            <label class="layer-item">
+              <input type="checkbox" checked onchange="toggleLayer('sangat-rendah', this.checked)">
+              <span class="layer-dot" style="background:#888780"></span> Sangat Rendah
+            </label>
+            <label class="layer-item">
+              <input type="checkbox" checked onchange="toggleLayer('titik-longsor', this.checked)">
+              <span class="layer-dot" style="background:#7F77DD; border-radius:50%"></span> Titik Longsor
+            </label>
+          </div>
+          <button class="btn-sm btn-green" onclick="fitMapBounds()">📍 Pusatkan Peta</button>
+          <a href="https://www.google.com/maps/@-5.47,105.32,14z/data=!3m1!1e3" target="_blank" class="btn-sm btn-outline-green" style="margin-top:6px">
+            🌍 Buka di Google Maps
+          </a>
+        </div>
+
+        <!-- Legend -->
+        <div class="map-legend">
+          <div class="legend-title">Legenda Kerentanan Longsor</div>
+          <div class="legend-item"><span style="background:#E24B4A"></span> Tinggi (0.75–1.00)</div>
+          <div class="legend-item"><span style="background:#EF9F27"></span> Menengah (0.50–0.75)</div>
+          <div class="legend-item"><span style="background:#378ADD"></span> Rendah (0.25–0.50)</div>
+          <div class="legend-item"><span style="background:#888780"></span> Sangat Rendah (0.00–0.25)</div>
+          <div class="legend-item"><span style="background:#7F77DD; border-radius:50%"></span> Titik Longsor</div>
+          <div class="legend-source">Sumber: Pemodelan MaxEnt, 2026</div>
+        </div>
+      </div>
+
+      <!-- Map reading guide -->
+      <div class="reading-guide">
+        <div class="rg-card" style="--c:#E24B4A">
+          <div class="rg-icon">🔴</div>
+          <div><strong>Merah = Tinggi</strong><br>Jangan mendirikan bangunan baru. Konsultasikan kondisi lereng ke ahli geologi.</div>
+        </div>
+        <div class="rg-card" style="--c:#EF9F27">
+          <div class="rg-icon">🟡</div>
+          <div><strong>Oranye = Menengah</strong><br>Perlu kajian geoteknik sebelum membangun. Pantau retakan tanah saat hujan deras.</div>
+        </div>
+        <div class="rg-card" style="--c:#378ADD">
+          <div class="rg-icon">🔵</div>
+          <div><strong>Biru = Rendah</strong><br>Waspadai saat curah hujan ekstrem. Jaga tutupan vegetasi di sekitar rumah.</div>
+        </div>
+        <div class="rg-card" style="--c:#888780">
+          <div class="rg-icon">⚪</div>
+          <div><strong>Abu = Sangat Rendah</strong><br>Dataran pesisir relatif aman dari longsor. Tetap waspada terhadap banjir pesisir.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== 3D GEOPORTAL VIEWER ====== -->
+    <div id="viewer-3d" class="viewer-panel fade-in" style="display:none">
+      <div class="viewer3d-wrap">
+        <div class="viewer3d-header">
+          <div class="viewer3d-title">
+            🌐 Model 3D Geoportal — Kecamatan Panjang
+            <span class="badge badge-green">Interaktif</span>
+          </div>
+          <div class="viewer3d-hint">
+            🖱 <strong>Klik+Geser</strong> = Putar &nbsp;|&nbsp; 🔍 <strong>Scroll</strong> = Zoom &nbsp;|&nbsp; ✋ <strong>Klik Kanan+Geser</strong> = Geser &nbsp;|&nbsp; 👆 <strong>Sentuh</strong> = Kontrol Touch
+          </div>
+        </div>
+
+        <div class="viewer3d-main">
+          <canvas id="canvas3d"></canvas>
+
+          <!-- 3D Controls Panel -->
+          <div class="controls3d">
+            <button class="ctrl-btn" onclick="resetCamera3d()" title="Reset tampilan">🏠</button>
+            <button class="ctrl-btn" onclick="topView3d()" title="Tampilan atas">⬆</button>
+            <button class="ctrl-btn" onclick="sideView3d()" title="Tampilan samping">➡</button>
+            <button class="ctrl-btn active" id="btn-rotate" onclick="toggleAutoRotate()" title="Rotasi otomatis">🔄</button>
+            <button class="ctrl-btn" id="btn-highlight" onclick="toggleHighlight()" title="Sorot zona tinggi">🔴</button>
+            <hr style="border-color:rgba(255,255,255,0.2);margin:4px 0">
+            <button class="ctrl-btn" onclick="zoomIn3d()" title="Zoom in">＋</button>
+            <button class="ctrl-btn" onclick="zoomOut3d()" title="Zoom out">－</button>
+            <hr style="border-color:rgba(255,255,255,0.2);margin:4px 0">
+            <a href="https://www.google.com/maps/@-5.47,105.32,14z/data=!3m1!1e3" target="_blank" class="ctrl-btn" title="Buka Google Maps">🌍</a>
+          </div>
+
+          <!-- 3D Legend Overlay -->
+          <div class="legend3d">
+            <div class="legend3d-title">Zona Kerentanan</div>
+            <div class="legend3d-item"><span style="background:#E24B4A"></span>Tinggi</div>
+            <div class="legend3d-item"><span style="background:#EF9F27"></span>Menengah</div>
+            <div class="legend3d-item"><span style="background:#378ADD"></span>Rendah</div>
+            <div class="legend3d-item"><span style="background:#888780"></span>Sangat Rendah</div>
+          </div>
+
+          <!-- Info panel (shown on click) -->
+          <div class="info3d" id="info3d" style="display:none">
+            <button class="info3d-close" onclick="document.getElementById('info3d').style.display='none'">✕</button>
+            <div class="info3d-zone" id="info3d-zone"></div>
+            <div class="info3d-body" id="info3d-body"></div>
+          </div>
+
+          <!-- Minimap -->
+          <canvas id="minimap3d" width="130" height="130"></canvas>
+
+          <!-- Compass -->
+          <div class="compass3d" id="compass3d">
+            <svg width="50" height="50" viewBox="0 0 50 50">
+              <circle cx="25" cy="25" r="23" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="rgba(0,0,0,0.4)"/>
+              <text x="25" y="10" text-anchor="middle" fill="white" font-size="8" font-weight="bold">U</text>
+              <text x="25" y="45" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="7">S</text>
+              <text x="8" y="28" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="7">B</text>
+              <text x="42" y="28" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="7">T</text>
+              <polygon id="compass-needle" points="25,14 22,25 25,24 28,25" fill="#E24B4A"/>
+              <polygon points="25,36 22,25 25,26 28,25" fill="white" opacity="0.7"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- 
+          KETERANGAN: Bagian di bawah ini adalah keterangan cara mengintegrasikan 
+          file 3D nyata dari QGIS. Jika sudah memiliki file .obj atau .glb hasil 
+          ekspor QGIS2threejs / Blender, hapus komentar dan sesuaikan path-nya.
+          
+          Cara ekspor dari QGIS:
+          1. Install plugin QGIS2threejs
+          2. Buka plugin, pilih DEM layer + layer kerentanan
+          3. Export sebagai HTML atau ambil file .obj/.glb-nya
+          4. Simpan di folder assets/ dengan nama model-panjang.glb
+          5. Uncomment baris loadRealModel() di js/map3d.js
+        -->
+        <div class="model-note">
+          <strong>💡 Catatan Model 3D:</strong> Model terrain saat ini adalah representasi parametrik berbasis data ketinggian DEM Kecamatan Panjang. 
+          Untuk menggunakan model 3D nyata hasil ekspor QGIS2threejs, simpan file <code>model-panjang.glb</code> di folder <code>assets/</code> 
+          dan aktifkan fungsi <code>loadRealModel()</code> di <code>js/map3d.js</code>.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==========================================
+     SECTION 4: METODE & DATA
+     ========================================== -->
+<section id="metode" class="section section-light">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-tag">Metode Ilmiah</span>
+      <h2>Metode MaxEnt &amp; Data Penelitian</h2>
+      <p class="section-desc">Pendekatan ilmiah yang digunakan untuk memetakan kerentanan longsor</p>
+    </div>
+
+    <!-- MaxEnt Explanation -->
+    <div class="analogy-box fade-in">
+      <div class="analogy-icon">💡</div>
+      <div>
+        <strong>Cara Kerja MaxEnt dalam Bahasa Sederhana:</strong><br>
+        Bayangkan Anda ingin tahu lokasi mana di Kecamatan Panjang yang "disukai" oleh longsor. Algoritma MaxEnt belajar dari 34 lokasi longsor nyata yang telah terdokumentasi, lalu mencari daerah lain dengan kombinasi kondisi serupa — kemiringan lereng, jenis batuan, jarak ke sungai, dan sebagainya — untuk memperkirakan probabilitas longsor (0–100%) di seluruh wilayah. Semakin tinggi nilai probabilitas, semakin rentan lokasi tersebut.
+      </div>
+    </div>
+
+    <!-- Workflow -->
+    <div class="workflow fade-in">
+      <div class="workflow-step">
+        <div class="wf-num">1</div>
+        <div class="wf-label">Data Inventori Longsor</div>
+        <div class="wf-desc">34 titik kejadian nyata dari survei lapangan &amp; BNPB</div>
+      </div>
+      <div class="workflow-arrow">→</div>
+      <div class="workflow-step">
+        <div class="wf-num">2</div>
+        <div class="wf-label">6 Parameter Lingkungan</div>
+        <div class="wf-desc">Slope, sungai, kelurusan, sesar, litologi, tutupan lahan</div>
+      </div>
+      <div class="workflow-arrow">→</div>
+      <div class="workflow-step">
+        <div class="wf-num">3</div>
+        <div class="wf-label">Algoritma MaxEnt</div>
+        <div class="wf-desc">Training 75% · Validasi 25%</div>
+      </div>
+      <div class="workflow-arrow">→</div>
+      <div class="workflow-step">
+        <div class="wf-num">4</div>
+        <div class="wf-label">Peta Probabilitas</div>
+        <div class="wf-desc">Output 0.00–1.00 per piksel 30×30m</div>
+      </div>
+      <div class="workflow-arrow">→</div>
+      <div class="workflow-step">
+        <div class="wf-num">5</div>
+        <div class="wf-label">Zonasi 4 Kelas</div>
+        <div class="wf-desc">Sangat Rendah · Rendah · Menengah · Tinggi</div>
+      </div>
+    </div>
+
+    <!-- AUC Result -->
+    <div class="auc-box fade-in">
+      <div class="auc-main">
+        <div class="auc-number">AUC = 0.806</div>
+        <div class="auc-sub">Training AUC: <strong>0.852</strong> · Test AUC: <strong>0.806</strong> · Selisih: 0.046 (tidak overfitting)</div>
+        <div class="auc-badge">Kategori: BAIK (0.81–0.90)</div>
+        <div class="auc-note">Artinya: Model benar dalam &gt;80% prediksi lokasi rawan longsor</div>
+      </div>
+      <div class="auc-gauge">
+        <svg width="180" height="100" viewBox="0 0 180 100">
+          <path d="M 20 90 A 70 70 0 0 1 160 90" fill="none" stroke="#eee" stroke-width="16" stroke-linecap="round"/>
+          <path d="M 20 90 A 70 70 0 0 1 160 90" fill="none" stroke="url(#auc-grad)" stroke-width="16" stroke-linecap="round" stroke-dasharray="220" stroke-dashoffset="44"/>
+          <defs>
+            <linearGradient id="auc-grad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#E24B4A"/>
+              <stop offset="50%" stop-color="#EF9F27"/>
+              <stop offset="75%" stop-color="#1D9E75"/>
+              <stop offset="100%" stop-color="#0F6E56"/>
+            </linearGradient>
+          </defs>
+          <text x="90" y="75" text-anchor="middle" font-size="22" font-weight="700" fill="#1D9E75">0.806</text>
+          <text x="90" y="92" text-anchor="middle" font-size="10" fill="#666">AUC Score</text>
+          <text x="20" y="98" font-size="9" fill="#888">0.5</text>
+          <text x="155" y="98" font-size="9" fill="#888">1.0</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 6 Parameters Grid -->
+    <h3 class="subsection-title fade-in">6 Parameter Lingkungan (Conditioning Factors)</h3>
+    <div class="params-grid fade-in">
+      <div class="param-card">
+        <div class="param-icon">⛰</div>
+        <div class="param-name">Kemiringan Lereng <em>(Slope)</em></div>
+        <div class="param-desc">Sudut kecuraman lereng. Semakin curam, semakin besar gaya gravitasi mendorong tanah. Mayoritas longsor terjadi pada lereng 10°–20°.</div>
+        <div class="param-contrib" style="--pct:42.3; --c:#E24B4A">
+          <span>Kontribusi Model:</span>
+          <div class="pct-bar"><div class="pct-fill" style="width:42.3%"></div></div>
+          <strong>42.3%</strong>
+        </div>
+      </div>
+      <div class="param-card">
+        <div class="param-icon">🌊</div>
+        <div class="param-name">Jarak dari Sungai</div>
+        <div class="param-desc">Erosi lateral sungai melemahkan kaki lereng. Mayoritas longsor terdokumentasi dalam jarak 0–400 meter dari jaringan sungai.</div>
+        <div class="param-contrib" style="--pct:31.9; --c:#EF9F27">
+          <span>Kontribusi Model:</span>
+          <div class="pct-bar"><div class="pct-fill" style="width:31.9%; background:#EF9F27"></div></div>
+          <strong>31.9%</strong>
+        </div>
+      </div>
+      <div class="param-card">
+        <div class="param-icon">⚡</div>
+        <div class="param-name">Jarak dari Kelurusan <em>(Lineament)</em></div>
+        <div class="param-desc">Kelurusan mencerminkan zona lemah struktural akibat tektonik. Area dekat kelurusan memiliki batuan lebih rapuh dan permeabel.</div>
+        <div class="param-contrib" style="--pct:19.1; --c:#378ADD">
+          <span>Kontribusi Model:</span>
+          <div class="pct-bar"><div class="pct-fill" style="width:19.1%; background:#378ADD"></div></div>
+          <strong>19.1%</strong>
+        </div>
+      </div>
+      <div class="param-card">
+        <div class="param-icon">📐</div>
+        <div class="param-name">Jarak dari Sesar <em>(Fault)</em></div>
+        <div class="param-desc">Sesar Lampung–Panjang yang aktif menghasilkan rekahan yang menurunkan kuat geser (shear strength) batuan penyusun lereng.</div>
+        <div class="param-contrib" style="--pct:6.8; --c:#888780">
+          <span>Kontribusi Model:</span>
+          <div class="pct-bar"><div class="pct-fill" style="width:6.8%; background:#888780"></div></div>
+          <strong>6.8%</strong>
+        </div>
+      </div>
+      <div class="param-card">
+        <div class="param-icon">🪨</div>
+        <div class="param-name">Litologi <em>(Jenis Batuan)</em></div>
+        <div class="param-desc">Formasi Tarahan (tuf &amp; breksi) dan Sekis Way Galih memiliki kerentanan tertinggi akibat pelapukan intens dan sifat batuan yang rapuh.</div>
+        <div class="param-contrib" style="--pct:10.2; --c:#7F77DD">
+          <span>Permutation Importance:</span>
+          <div class="pct-bar"><div class="pct-fill" style="width:10.2%; background:#7F77DD"></div></div>
+          <strong>10.2%</strong>
+        </div>
+      </div>
+      <div class="param-card">
+        <div class="param-icon">🏘</div>
+        <div class="param-name">Tutupan Lahan <em>(Land Cover)</em></div>
+        <div class="param-desc">Area bangunan dan lahan terbuka lebih rentan. Vegetasi hutan dengan akar dalam memperkuat lereng dan menyerap air hujan.</div>
+        <div class="param-contrib" style="--pct:4.2; --c:#1D9E75">
+          <span>Permutation Importance:</span>
+          <div class="pct-bar"><div class="pct-fill" style="width:4.2%; background:#1D9E75"></div></div>
+          <strong>4.2%</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Sources -->
+    <h3 class="subsection-title fade-in">Sumber Data Penelitian</h3>
+    <div class="fade-in">
+      <table class="data-table">
+        <thead>
+          <tr><th>Sumber Data</th><th>Jenis</th><th>Instansi</th><th>Keterangan</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>DEMNAS</strong></td><td>Raster DEM 8m</td><td>BIG (Badan Informasi Geospasial)</td><td>Kemiringan lereng &amp; kelurusan</td></tr>
+          <tr><td><strong>Peta Geologi Lembar Tanjungkarang</strong></td><td>Vektor Polygon</td><td>Pusat Survei Geologi, Badan Geologi ESDM</td><td>Litologi &amp; sesar</td></tr>
+          <tr><td><strong>SHP RBI Bandar Lampung</strong></td><td>Vektor Shapefile</td><td>BIG / Pemkot Bandar Lampung</td><td>Tutupan lahan &amp; jaringan sungai</td></tr>
+          <tr><td><strong>Geoportal BNPB</strong></td><td>Point Data</td><td>BNPB (Badan Nasional Penanggulangan Bencana)</td><td>Inventarisasi kejadian longsor historis</td></tr>
+          <tr><td><strong>Survei Lapangan</strong></td><td>GPS Point</td><td>Tim Capstone Design ITERA, 2025–2026</td><td>34 titik longsor terverifikasi</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Photo Gallery -->
+    <div class="photo-gallery fade-in">
+      <!-- 
+        KETERANGAN: Ganti setiap <div class="photo-placeholder"> di bawah ini 
+        dengan tag <img> yang menampilkan foto kegiatan lapangan.
+        Format: <img src="assets/foto-1.jpg" alt="Keterangan foto" class="gallery-img"/>
+        Ukuran ideal per foto: 400x300px, format JPG/WebP
+        
+        Foto yang direkomendasikan:
+        1. assets/foto-survei-gps.jpg   → Pengambilan koordinat GPS di lokasi longsor
+        2. assets/foto-lereng.jpg       → Kondisi morfologi lereng berbukti
+        3. assets/foto-batuan.jpg       → Singkapan batuan tuf/breksi di lapangan
+        4. assets/foto-sungai.jpg       → Kondisi sungai dan erosi kaki lereng
+        5. assets/foto-pengolahan.jpg   → Pengolahan data di komputer (QGIS/MaxEnt)
+        6. assets/foto-diskusi.jpg      → Diskusi kelompok / bimbingan dengan dosen
+      -->
+      <div class="photo-placeholder"><div>📷<br>Survei GPS<br><small>assets/foto-survei-gps.jpg</small></div></div>
+      <div class="photo-placeholder"><div>📷<br>Kondisi Lereng<br><small>assets/foto-lereng.jpg</small></div></div>
+      <div class="photo-placeholder"><div>📷<br>Batuan Tuf<br><small>assets/foto-batuan.jpg</small></div></div>
+      <div class="photo-placeholder"><div>📷<br>Erosi Sungai<br><small>assets/foto-sungai.jpg</small></div></div>
+      <div class="photo-placeholder"><div>📷<br>Pengolahan Data<br><small>assets/foto-pengolahan.jpg</small></div></div>
+      <div class="photo-placeholder"><div>📷<br>Bimbingan Dosen<br><small>assets/foto-diskusi.jpg</small></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SECTION 5: HASIL & ZONASI
+     ========================================== -->
+<section id="hasil" class="section">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-tag">Hasil Penelitian</span>
+      <h2>Zonasi Kerentanan Longsor</h2>
+      <p class="section-desc">Distribusi spasial dan rekapitulasi luas kerentanan longsor Kecamatan Panjang</p>
+    </div>
+
+    <!-- Warning Banner -->
+    <div class="warning-banner fade-in">
+      ⚠ <strong>Perhatian:</strong> Zona Kerentanan Tinggi seluas <strong>1.31 km²</strong> bersinggungan langsung dengan permukiman padat penduduk di Kelurahan Pidada dan infrastruktur vital <strong>Jalan Lintas Sumatera</strong>.
+    </div>
+
+    <div class="results-grid fade-in">
+      <!-- Donut Chart -->
+      <div class="chart-wrap">
+        <div class="chart-title">Distribusi Luas Kerentanan (%)</div>
+        <canvas id="donutChart" width="280" height="280"></canvas>
+        <div class="chart-legend">
+          <div class="cl-item"><span style="background:#E24B4A"></span>Tinggi (9.90%)</div>
+          <div class="cl-item"><span style="background:#EF9F27"></span>Menengah (16.60%)</div>
+          <div class="cl-item"><span style="background:#378ADD"></span>Rendah (26.74%)</div>
+          <div class="cl-item"><span style="background:#888780"></span>Sangat Rendah (46.76%)</div>
+        </div>
+      </div>
+
+      <!-- Data Table -->
+      <div class="result-table-wrap">
+        <div class="chart-title">Rekapitulasi Luas Zona Kerentanan</div>
+        <table class="result-table">
+          <thead>
+            <tr><th>Kelas</th><th>Prob. MaxEnt</th><th>Luas (km²)</th><th>(%)</th><th>Kelurahan Dominan</th></tr>
+          </thead>
+          <tbody>
+            <tr class="row-tinggi">
+              <td><span class="badge badge-red">Tinggi</span></td>
+              <td><code>0.75–1.00</code></td>
+              <td><strong>1.31</strong></td>
+              <td>9.90%</td>
+              <td>Pidada, Panjang Utara, Karang Maritim</td>
+            </tr>
+            <tr class="row-menengah">
+              <td><span class="badge badge-amber">Menengah</span></td>
+              <td><code>0.50–0.75</code></td>
+              <td><strong>2.19</strong></td>
+              <td>16.60%</td>
+              <td>Panjang Selatan, Way Lunik</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-blue">Rendah</span></td>
+              <td><code>0.25–0.50</code></td>
+              <td><strong>3.53</strong></td>
+              <td>26.74%</td>
+              <td>Ketapang</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-gray">Sangat Rendah</span></td>
+              <td><code>0.00–0.25</code></td>
+              <td><strong>6.17</strong></td>
+              <td>46.76%</td>
+              <td>Srengsem, Ketapang Kuala</td>
+            </tr>
+            <tr class="row-total">
+              <td colspan="2"><strong>Total</strong></td>
+              <td><strong>13.20</strong></td>
+              <td><strong>100%</strong></td>
+              <td>8 Kelurahan</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Bar Chart: Parameter Contribution -->
+    <div class="chart-section fade-in">
+      <div class="chart-title">Kontribusi Parameter terhadap Model MaxEnt</div>
+      <div class="pullquote">"Kemiringan lereng dan jarak dari sungai bersama menjelaskan <strong>74.2%</strong> pola spasial kejadian longsor di Kecamatan Panjang."</div>
+      <canvas id="barChart" height="200"></canvas>
+    </div>
+
+    <!-- Cross-section Infographic -->
+    <div class="cross-section-wrap fade-in">
+      <div class="chart-title">Ilustrasi Penampang Lereng Kecamatan Panjang</div>
+      <svg class="cross-section" viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg">
+        <!-- Sky -->
+        <rect x="0" y="0" width="800" height="120" fill="#E6F1FB" rx="8"/>
+        <!-- Bedrock -->
+        <path d="M 0 320 L 0 240 L 200 260 L 400 200 L 600 160 L 800 140 L 800 320 Z" fill="#8B7355"/>
+        <!-- Formasi Tarahan (tuf layer) -->
+        <path d="M 0 240 L 200 255 L 400 195 L 600 155 L 800 135 L 800 180 L 600 200 L 400 240 L 200 280 L 0 270 Z" fill="#C4A882" opacity="0.9"/>
+        <!-- Surface soil -->
+        <path d="M 0 270 L 200 278 L 400 238 L 600 198 L 800 178 L 800 200 L 600 220 L 400 260 L 200 295 L 0 290 Z" fill="#8B5E3C" opacity="0.8"/>
+        <!-- Fault line -->
+        <line x1="380" y1="80" x2="460" y2="320" stroke="#E24B4A" stroke-width="2.5" stroke-dasharray="8,4"/>
+        <!-- Slip plane -->
+        <path d="M 100 265 Q 300 230 500 195" stroke="#FF6B6B" stroke-width="2" stroke-dasharray="6,3" fill="none"/>
+        <!-- Rain arrows -->
+        <g fill="none" stroke="#378ADD" stroke-width="1.5">
+          <line x1="150" y1="20" x2="150" y2="50"/><polygon points="150,55 146,45 154,45" fill="#378ADD"/>
+          <line x1="300" y1="20" x2="300" y2="50"/><polygon points="300,55 296,45 304,45" fill="#378ADD"/>
+          <line x1="450" y1="20" x2="450" y2="50"/><polygon points="450,55 446,45 454,45" fill="#378ADD"/>
+          <line x1="600" y1="20" x2="600" y2="50"/><polygon points="600,55 596,45 604,45" fill="#378ADD"/>
+        </g>
+        <!-- Mass movement arrow -->
+        <path d="M 500 210 Q 350 250 200 285" stroke="#E24B4A" stroke-width="4" fill="none" marker-end="url(#arrow-red)"/>
+        <defs>
+          <marker id="arrow-red" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M 0 0 L 8 4 L 0 8 Z" fill="#E24B4A"/>
+          </marker>
+        </defs>
+        <!-- Labels -->
+        <text x="400" y="100" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#185FA5">Infiltrasi Air Hujan</text>
+        <text x="150" y="248" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#2C2C2A" font-weight="600">Aluvium</text>
+        <text x="500" y="220" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#2C2C2A" font-weight="600">Tuf Lapukan (Formasi Tarahan)</text>
+        <text x="650" y="170" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#F1EFE8" font-weight="600">Batuan Dasar</text>
+        <text x="455" y="125" text-anchor="start" font-family="Inter,sans-serif" font-size="11" fill="#E24B4A" font-weight="700">Sesar Lampung–Panjang</text>
+        <text x="290" y="225" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#E24B4A">Bidang Gelincir Potensial</text>
+        <text x="330" y="265" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#E24B4A" font-weight="700">⟵ Arah Gerakan Massa</text>
+        <!-- Elevation markers -->
+        <text x="15" y="250" font-family="Inter,sans-serif" font-size="10" fill="#666">0m</text>
+        <text x="15" y="175" font-family="Inter,sans-serif" font-size="10" fill="#666">~50m</text>
+        <text x="785" y="145" text-anchor="end" font-family="Inter,sans-serif" font-size="10" fill="#666">~80m</text>
+        <text x="15" y="10" font-family="Inter,sans-serif" font-size="10" fill="#185FA5">Barat (Pesisir)</text>
+        <text x="785" y="10" text-anchor="end" font-family="Inter,sans-serif" font-size="10" fill="#185FA5">Timur (Perbukitan)</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SECTION 6: MITIGASI
+     ========================================== -->
+<section id="mitigasi" class="section section-light">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-tag" style="background:#FCEBEB;color:#A32D2D">Aksi &amp; Mitigasi</span>
+      <h2>Rekomendasi Mitigasi Bencana</h2>
+      <p class="section-desc">Langkah konkret untuk pemerintah, warga, dan pemangku kepentingan berdasarkan hasil pemetaan</p>
+    </div>
+
+    <!-- Accordion Zones -->
+    <div class="accordion fade-in">
+      <div class="accordion-item open" id="acc-tinggi">
+        <button class="accordion-header" style="--az:#E24B4A" onclick="toggleAcc('tinggi')">
+          <span>🔴 Zona Kerentanan <strong>Tinggi</strong> — Kel. Pidada, Panjang Utara, Karang Maritim</span>
+          <span class="acc-chevron">▾</span>
+        </button>
+        <div class="accordion-body" id="body-tinggi">
+          <div class="mit-grid">
+            <div class="mit-col">
+              <div class="mit-col-title">🏗 Mitigasi Struktural (Rekayasa Geoteknik)</div>
+              <ul class="mit-list">
+                <li>Sistem drainase permukaan <em>(catch drain)</em> di mahkota lereng dan drainase bawah permukaan <em>(horizontal drain)</em> di badan lereng</li>
+                <li>Dinding penahan tanah tipe <em>Gravity Wall</em> atau bronjong <em>(gabion)</em> di kaki lereng dekat aliran sungai</li>
+                <li>Sistem terasering <em>(benching)</em> dengan rasio kemiringan dan lebar berm yang sesuai nilai kohesi tanah</li>
+                <li>Perkuatan lereng dengan <em>ground anchor</em> atau <em>soil nailing</em> pada lereng kritis</li>
+                <li>Revegetasi menggunakan tanaman berakar dalam untuk bioengineering lereng</li>
+              </ul>
+            </div>
+            <div class="mit-col">
+              <div class="mit-col-title">📋 Mitigasi Non-Struktural (Kebijakan)</div>
+              <ul class="mit-list">
+                <li>Penghentian penerbitan IMB baru di kelerengan &gt;20° dalam zona Tinggi</li>
+                <li>Pemasangan <em>Early Warning System</em>: <em>Automatic Rain Gauge</em> (ARG) dan ekstensometer</li>
+                <li>Sosialisasi jalur evakuasi mandiri oleh BPBD untuk warga di lereng dengan batuan tuf</li>
+                <li>Memasukkan peta kerentanan ini ke dalam tinjauan RDTR Kecamatan Panjang</li>
+                <li>Evakuasi mandiri saat curah hujan &gt;100mm/hari dan tanah menunjukkan retakan baru</li>
+              </ul>
+            </div>
+          </div>
+          <div class="info-box info-danger" style="margin-top:1rem">
+            <strong>Referensi:</strong> Rekomendasi ini merujuk pada SNI 8291:2016 — Penyusunan dan Penentuan Zona Kerentanan Gerakan Tanah, serta hasil analisis model MaxEnt penelitian ini.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item" id="acc-menengah">
+        <button class="accordion-header" style="--az:#EF9F27" onclick="toggleAcc('menengah')">
+          <span>🟡 Zona Kerentanan <strong>Menengah</strong> — Kel. Panjang Selatan, Way Lunik</span>
+          <span class="acc-chevron">▾</span>
+        </button>
+        <div class="accordion-body" id="body-menengah" style="display:none">
+          <ul class="mit-list">
+            <li>Lakukan investigasi geoteknik mikro (bor teknik, SPT) sebelum membangun infrastruktur baru</li>
+            <li>Penanaman akar wangi <em>(Vetiveria zizanioides)</em> dan bambu di lahan terbuka untuk memperkuat lereng</li>
+            <li>Batasi alih fungsi lahan perbukitan menjadi permukiman atau kawasan komersial</li>
+            <li>Pemantauan visual berkala oleh warga: perhatikan retakan dinding, pergeseran tanah, atau mata air baru</li>
+            <li>Pasang rambu peringatan di jalur yang melewati lereng terjal</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="accordion-item" id="acc-rendah">
+        <button class="accordion-header" style="--az:#378ADD" onclick="toggleAcc('rendah')">
+          <span>🔵 Zona Kerentanan <strong>Rendah</strong> — Kel. Ketapang</span>
+          <span class="acc-chevron">▾</span>
+        </button>
+        <div class="accordion-body" id="body-rendah" style="display:none">
+          <ul class="mit-list">
+            <li>Jaga tutupan vegetasi, hindari penebangan liar di area perbukitan sekitar</li>
+            <li>Waspada saat curah hujan melebihi 50mm/hari — potensi longsor kecil meningkat</li>
+            <li>Laporkan retakan tanah baru atau perubahan debit mata air kepada RT/RW setempat</li>
+            <li>Drainase permukaan jalan dan permukiman dijaga agar berfungsi baik</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="accordion-item" id="acc-sr">
+        <button class="accordion-header" style="--az:#888780" onclick="toggleAcc('sr')">
+          <span>⚪ Zona Kerentanan <strong>Sangat Rendah</strong> — Kel. Srengsem, Ketapang Kuala</span>
+          <span class="acc-chevron">▾</span>
+        </button>
+        <div class="accordion-body" id="body-sr" style="display:none">
+          <ul class="mit-list">
+            <li>Potensi banjir pesisir dan genangan lebih signifikan dibanding longsor di zona ini</li>
+            <li>Pantau kondisi drainase permukaan, khususnya saat musim hujan</li>
+            <li>Tetap waspadai perubahan morfologi lereng di batas dengan zona Rendah</li>
+            <li>Pertahankan vegetasi mangrove di area pesisir untuk mitigasi abrasi</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Structural vs Non-Structural -->
+    <div class="mit-compare fade-in">
+      <div class="mit-compare-card">
+        <div class="mit-compare-header" style="background:#1D9E75">🏗 Mitigasi Struktural</div>
+        <ul class="mit-list">
+          <li>Sistem drainase lereng permukaan dan bawah permukaan</li>
+          <li>Dinding penahan tanah (Gravity Wall, bronjong)</li>
+          <li>Terasering (benching) lereng</li>
+          <li>Perkuatan kaki lereng (gabion, sheet pile)</li>
+          <li>Bioengineering: tanaman berakar dalam</li>
+        </ul>
+      </div>
+      <div class="mit-compare-card">
+        <div class="mit-compare-header" style="background:#378ADD">📋 Mitigasi Non-Struktural</div>
+        <ul class="mit-list">
+          <li>Pengendalian IMB di zona kerentanan Tinggi</li>
+          <li>Sistem Peringatan Dini (EWS) — rain gauge &amp; ekstensometer</li>
+          <li>Integrasi peta ke RDTR Kecamatan Panjang</li>
+          <li>Edukasi &amp; sosialisasi evakuasi bagi warga</li>
+          <li>Regulasi alih fungsi lahan perbukitan</li>
+        </ul>
+        <div class="ref-note">Berdasarkan SNI 8291:2016</div>
+      </div>
+    </div>
+
+    <!-- Citizen Checklist -->
+    <div class="checklist-section fade-in">
+      <div class="checklist-title">✅ Apa yang Harus Saya Lakukan sebagai Warga?</div>
+      <div class="checklist-grid">
+        <div class="check-item">✅ Cek lokasi rumah Anda di Peta Interaktif di halaman ini</div>
+        <div class="check-item">✅ Kenali warna zona kerentanan di lingkungan Anda</div>
+        <div class="check-item">✅ Perhatikan tanda bahaya: retakan tanah, dinding miring, air keruh tiba-tiba</div>
+        <div class="check-item">✅ Siapkan tas siaga bencana dan jalur evakuasi keluarga</div>
+        <div class="check-item">✅ Pantau info curah hujan BMKG saat musim penghujan</div>
+        <div class="check-item">✅ Laporkan kejadian ke BPBD Bandar Lampung segera</div>
+      </div>
+    </div>
+
+    <!-- Emergency Banner -->
+    <div class="emergency-banner fade-in">
+      🆘 <strong>DARURAT BENCANA:</strong> Hubungi BPBD Kota Bandar Lampung &nbsp;|&nbsp; ☎ <strong>(0721) 483 240</strong> &nbsp;|&nbsp; Atau Hubungi Nomor Darurat Nasional <strong>112</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SECTION 7: TIM PENGEMBANG
+     ========================================== -->
+<section id="tim" class="section section-dark">
+  <div class="container">
+    <div class="section-header fade-in" style="color:white">
+      <span class="section-tag" style="background:rgba(255,255,255,0.15);color:white">Capstone Design ITERA 2026</span>
+      <h2 style="color:white">Tim Pengembang</h2>
+      <p class="section-desc" style="color:rgba(255,255,255,0.7)">Prototipe WebGIS Zonasi Kerentanan Longsor — Teknik Geologi ITERA 2026</p>
+    </div>
+
+    <!-- Project identity -->
+    <div class="project-identity fade-in">
+      <!-- 
+        KETERANGAN: Ganti <div class="logo-placeholder"> dengan logo resmi ITERA.
+        <img src="assets/logo-itera.png" alt="Logo ITERA" style="height:70px"/>
+        Simpan file logo di: assets/logo-itera.png
+      -->
+      <div class="logo-placeholder">ITERA</div>
+      <div class="project-info-grid">
+        <div><span class="pi-label">Mata Kuliah</span><span class="pi-val">Capstone Design</span></div>
+        <div><span class="pi-label">Program Studi</span><span class="pi-val">Teknik Geologi</span></div>
+        <div><span class="pi-label">Fakultas</span><span class="pi-val">Teknologi Industri</span></div>
+        <div><span class="pi-label">Institusi</span><span class="pi-val">Institut Teknologi Sumatera (ITERA)</span></div>
+        <div><span class="pi-label">Lokasi</span><span class="pi-val">Lampung Selatan, Indonesia</span></div>
+        <div><span class="pi-label">Tahun</span><span class="pi-val">2026</span></div>
+      </div>
+    </div>
+
+    <!-- Team Members -->
+    <h3 class="subsection-title fade-in" style="color:white">Anggota Tim</h3>
+    <div class="team-grid fade-in">
+      <div class="team-card">
+        <!-- 
+          KETERANGAN: Ganti <div class="avatar"> dengan foto anggota tim.
+          <img src="assets/foto-gebi.jpg" alt="Gebi Santaria" class="team-photo"/>
+          Ukuran foto: 200x200px, format JPG, dibuat bulat dengan CSS border-radius:50%
+        -->
+        <div class="avatar" style="background:#1D9E75">GSN</div>
+        <div class="team-name">Gebi Santaria Nainggolan</div>
+        <div class="team-nim">NIM. 123150009</div>
+        <div class="team-role">GIS &amp; MaxEnt Analyst</div>
+        <div class="team-bio">Bertanggung jawab atas pemrosesan data spasial, pemodelan MaxEnt, validasi akurasi model, dan pengembangan geoportal.</div>
+      </div>
+      <div class="team-card">
+        <div class="avatar" style="background:#378ADD">BSM</div>
+        <div class="team-name">Berman Sandy Mora</div>
+        <div class="team-nim">NIM. 123150066</div>
+        <div class="team-role">Field Survey &amp; Data Collection</div>
+        <div class="team-bio">Melaksanakan survei lapangan, inventarisasi 34 titik longsor, dokumentasi kondisi geologi, dan pengumpulan data primer.</div>
+      </div>
+      <div class="team-card">
+        <div class="avatar" style="background:#EF9F27">SRPL</div>
+        <div class="team-name">Syahrani Revina Putri Latief</div>
+        <div class="team-nim">NIM. 123150105</div>
+        <div class="team-role">Report &amp; Visualization</div>
+        <div class="team-bio">Menyusun laporan ilmiah, visualisasi hasil penelitian, analisis mitigasi, dan pengembangan prototipe website ini.</div>
+      </div>
+    </div>
+
+    <!-- Supervisors -->
+    <h3 class="subsection-title fade-in" style="color:white">Pembimbing &amp; Koordinator</h3>
+    <div class="supervisor-grid fade-in">
+      <div class="supervisor-card">
+        <div class="sup-role">Dosen Pembimbing</div>
+        <div class="sup-name">Bilal Al Farishi, B.Sc(Hons)., M.Sc</div>
+        <div class="sup-nip">NIP. 199208212019031023</div>
+        <div class="sup-dept">Program Studi Teknik Geologi<br>Institut Teknologi Sumatera</div>
+      </div>
+      <div class="supervisor-card">
+        <div class="sup-role">Koordinator Program Studi</div>
+        <div class="sup-name">Angga Jati Widiatama, S.T., M.T.</div>
+        <div class="sup-nip">NIP. 199110302022031005</div>
+        <div class="sup-dept">Program Studi Teknik Geologi<br>Fakultas Teknologi Industri, ITERA</div>
+      </div>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="disclaimer fade-in">
+      <strong>Disclaimer:</strong> Website ini merupakan prototipe hasil Capstone Design Program Studi Teknik Geologi, Institut Teknologi Sumatera (ITERA) Tahun 2026. Data, peta, dan rekomendasi yang disajikan bersifat ilmiah-akademis berdasarkan pemodelan MaxEnt dan berfungsi sebagai referensi perencanaan. Bukan merupakan keputusan hukum atau kebijakan resmi pemerintah daerah. Penggunaan untuk keputusan kritis harus disertai kajian geoteknik lapangan oleh tenaga ahli bersertifikat.
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     FOOTER
+     ========================================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="19" fill="rgba(255,255,255,0.15)"/>
+          <path d="M6 28 L14 14 L20 22 L26 12 L34 28 Z" fill="white" opacity="0.8"/>
+        </svg>
+        <div>
+          <div class="footer-brand-name">WebGIS Longsor Panjang</div>
+          <div class="footer-tagline">Peta Ilmiah untuk Kesiapsiagaan Bencana</div>
+        </div>
+      </div>
+      <div class="footer-nav">
+        <div class="footer-nav-title">Navigasi</div>
+        <a href="#beranda">Beranda</a>
+        <a href="#tentang">Tentang Proyek</a>
+        <a href="#peta">Peta Interaktif</a>
+        <a href="#metode">Metode &amp; Data</a>
+        <a href="#hasil">Hasil &amp; Zonasi</a>
+        <a href="#mitigasi">Mitigasi</a>
+        <a href="#tim">Tim Pengembang</a>
+      </div>
+      <div class="footer-dev">
+        <div class="footer-nav-title">Dikembangkan Oleh</div>
+        <div>Gebi Santaria Nainggolan · NIM 123150009</div>
+        <div>Berman Sandy Mora · NIM 123150066</div>
+        <div>Syahrani Revina Putri Latief · NIM 123150105</div>
+        <div style="margin-top:8px; opacity:0.7; font-size:13px">
+          Teknik Geologi · Fakultas Teknologi Industri<br>
+          Institut Teknologi Sumatera (ITERA) · 2026
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Teknik Geologi ITERA · Capstone Design · Seluruh data bersifat akademis dan ilmiah
+    </div>
+  </div>
+</footer>
+
+<!-- Scroll to top button -->
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll ke atas">↑</button>
+
+<!-- Tooltip container -->
+<div id="tooltip" class="tooltip-box" style="display:none"></div>
+
+<!-- ==========================================
+     SCRIPTS (load order matters)
+     ========================================== -->
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- Three.js r128 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- Chart.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<!-- Main scripts -->
+<script src="js/data.js"></script>
+<script src="js/map2d.js"></script>
+<script src="js/map3d.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>

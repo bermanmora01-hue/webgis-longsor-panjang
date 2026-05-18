@@ -184,46 +184,36 @@
         </div>
       </div>
 
-      <div class="col-visual fade-in">
-        <!-- 
-          KETERANGAN: Ganti <div class="map-placeholder"> di bawah ini 
-          dengan tag <img> yang menampilkan:
-          - Foto kegiatan survei lapangan, ATAU
-          - Screenshot peta lokasi penelitian dari QGIS
-          Contoh: <img src="assets/foto-survei.jpg" alt="Survei lapangan" class="rounded-img"/>
-          Ukuran ideal: 500x600px, format JPG/WebP
-        -->
-        <img src="assets/foto-lokasi.jpg.png"
-     alt="Lokasi penelitian Kecamatan Panjang, Bandar Lampung"
-     class="square-img"
-     style="width:100%;max-height:100%;object-fit:cover"/>
-          <div class="map-placeholder-inner">
-            <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-              <circle cx="40" cy="30" r="18" stroke="#1D9E75" stroke-width="2" fill="#E1F5EE"/>
-              <path d="M40 48 L40 70" stroke="#1D9E75" stroke-width="2"/>
-              <circle cx="40" cy="30" r="6" fill="#1D9E75"/>
-            </svg>
-            <p>Kecamatan Panjang<br>Bandar Lampung</p>
-            <small> </small>
-          </div>
-        </div>
-
-        <div class="pvmbg-table fade-in">
-          <div class="table-title">Potensi Gerakan Tanah Lampung (PVMBG 2022–2026)</div>
-          <table>
-            <thead><tr><th>Kecamatan</th><th>Potensi</th></tr></thead>
-            <tbody>
-              <tr><td>Kemiling</td><td><span class="badge badge-amber">Menengah</span></td></tr>
-              <tr class="row-highlight"><td><strong>Panjang</strong></td><td><span class="badge badge-red">Menengah–Tinggi</span></td></tr>
-              <tr><td>Sukabumi</td><td><span class="badge badge-amber">Menengah</span></td></tr>
-              <tr><td>Tanjungkarang Barat</td><td><span class="badge badge-amber">Menengah</span></td></tr>
-              <tr><td>Telukbetung Barat</td><td><span class="badge badge-amber">Menengah</span></td></tr>
-              <tr><td>Telukbetung Selatan</td><td><span class="badge badge-amber">Menengah</span></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <div class="two-col-location"> <div class="col-visual fade-in">
+    <img src="assets/foto-lokasi.jpg.png" 
+         alt="Lokasi penelitian Kecamatan Panjang, Bandar Lampung" 
+         class="square-img-main" />
+    
+    <div class="map-overlay-label">
+      <svg width="30" height="30" viewBox="0 0 80 80" fill="none">
+        <circle cx="40" cy="30" r="18" stroke="#1D9E75" stroke-width="4" fill="#E1F5EE"/>
+        <circle cx="40" cy="30" r="8" fill="#1D9E75"/>
+      </svg>
+      <p>Kecamatan Panjang, <br><strong>Bandar Lampung</strong></p>
     </div>
+  </div>
+
+  <div class="pvmbg-table fade-in">
+    <div class="table-title">Potensi Gerakan Tanah Lampung (PVMBG 2022–2026)</div>
+    <table>
+      <thead><tr><th>Kecamatan</th><th>Potensi</th></tr></thead>
+      <tbody>
+        <tr><td>Kemiling</td><td><span class="badge badge-amber">Menengah</span></td></tr>
+        <tr class="row-highlight"><td><strong>Panjang</strong></td><td><span class="badge badge-red">Menengah–Tinggi</span></td></tr>
+        <tr><td>Sukabumi</td><td><span class="badge badge-amber">Menengah</span></td></tr>
+        <tr><td>Tanjungkarang Barat</td><td><span class="badge badge-amber">Menengah</span></td></tr>
+        <tr><td>Telukbetung Barat</td><td><span class="badge badge-amber">Menengah</span></td></tr>
+        <tr><td>Telukbetung Selatan</td><td><span class="badge badge-amber">Menengah</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
 
     <!-- Zone preview cards -->
     <h3 class="subsection-title fade-in">Tingkat Kerentanan Longsor di Kecamatan Panjang</h3>

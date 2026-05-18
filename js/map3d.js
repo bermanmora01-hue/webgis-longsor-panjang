@@ -59,11 +59,17 @@ function init3D() {
     animate3D();
 }
 
-function generateTerrain() {
-    const segs = 90;
-    const geo = new THREE.PlaneGeometry(160, 160, segs, segs);
-    geo.rotateX(-Math.PI / 2);
-
+function loadRealModel() {
+    const loader = new THREE.GLTFLoader();
+    loader.load('assets/model-panjang.glb',
+        function(gltf) {
+            terrain = gltf.scene;
+            scene.add(terrain);
+        },
+        function(xhr) { console.log((xhr.loaded / xhr.total * 100) + '% loaded'); },
+        function(error) { console.error('Error loading model:', error); }
+    );
+}
     const pos = geo.attributes.position.array;
     const cols = [];
     const c = new THREE.Color();

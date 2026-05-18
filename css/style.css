@@ -708,30 +708,21 @@ tr:last-child td { border: none; }
   .stats-grid { grid-template-columns: 1fr; }
   .checklist-grid { grid-template-columns: 1fr; }
 }
-/* Container Utama */
-.container {
-  width: 92%;
-  max-width: 1200px;
-  margin: 0 auto;
+/* Container Utama yang Menyeimbangkan Semua Device */
+.container { 
+  width: 92%; /* Memberi jarak aman di kiri-kanan pada Mobile */
+  max-width: 1200px; /* Lebar maksimal pada Laptop agar tidak terlalu lebar */
+  margin: 0 auto; 
+  padding: 0; 
 }
 
-/* Responsive Grid untuk Lokasi & Tabel */
-.location-grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Laptop: 2 kolom, Tab/HP: 1 kolom */
-  gap: 20px;
-}
-
-/* Tipografi Adaptif */
-h1 { font-size: clamp(1.8rem, 5vw, 3rem); }
-h2 { font-size: clamp(1.5rem, 4vw, 2.2rem); }
-
-/* Tablet & Mobile Fixes */
-@media (max-width: 1024px) { /* Tablet */
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (max-width: 600px) { /* HP */
-  .stats-grid { grid-template-columns: 1fr; }
-  .nav-links { display: none; } /* Gunakan Hamburger Menu yang sudah kita buat di main.js */
+/* Fix untuk Mobile (HP) */
+@media (max-width: 768px) {
+  .hero-title { font-size: 1.8rem !important; }
+  .section { padding: 3rem 0; }
+  .two-col { grid-template-columns: 1fr; gap: 2rem; } /* Stack kolom jadi ke bawah */
+  
+  /* Peta menyesuaikan tinggi layar HP */
+  #map2d { height: 400px; }
+  .viewer3d-main { height: 350px; }
 }

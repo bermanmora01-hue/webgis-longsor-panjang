@@ -1,0 +1,31 @@
+{
+  "name": "webgis-maxent-longsor-panjang",
+  "version": "1.0.0",
+  "description": "Prototipe WebGIS berbasis algoritma Maximum Entropy (MaxEnt) dan Model 3D. Capstone Design · Program Studi Teknik Geologi · ITERA 2026",
+  "main": "index.html",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bermanmora01-hue/webgis-longsor-panjang.git"
+  },
+  "keywords": [
+    "webgis",
+    "maxent",
+    "landslide",
+    "geology",
+    "vercel",
+    "speed-insights"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bermanmora01-hue/webgis-longsor-panjang/issues"
+  },
+  "homepage": "https://github.com/bermanmora01-hue/webgis-longsor-panjang#readme",
+  "dependencies": {
+    "@vercel/speed-insights": "^2.0.0"
+  }
+}

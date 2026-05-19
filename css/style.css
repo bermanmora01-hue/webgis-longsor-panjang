@@ -203,33 +203,83 @@ ul { padding-left: 1.25rem; }
 .stat-label small { display: block; font-size: 11px; opacity: 0.7; }
 
 /* ============================================================
-   TWO-COL LAYOUT
+   TWO-COL LAYOUT (FIXED SAME HEIGHT & RESPONSIVE)
    ============================================================ */
-.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; margin-bottom: 3rem; }
-.col-text p { color: var(--text-mid); margin-bottom: 1rem; }
-.tooltip-term { border-bottom: 1px dashed var(--green); cursor: help; color: inherit; }
-
-.info-box {
-  padding: 1rem 1.25rem; border-radius: var(--radius);
-  border-left: 4px solid; margin: 1.25rem 0; font-size: 14px;
+/* Container Utama menggunakan Flexbox dengan sifat Stretch */
+.two-col-location {
+  display: flex;
+  align-items: stretch; /* MEMBUAT TINGGI KOLOM KIRI & KANAN SELALU SAMA PERSIS */
+  gap: 24px;
+  margin-bottom: 30px;
+  width: 100%;
 }
-.info-warning { background: #FAEEDA; border-color: var(--amber); }
-.info-danger  { background: #FCEBEB; border-color: var(--red); }
-.info-info    { background: #E6F1FB; border-color: var(--blue); }
 
-.goal-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; }
-.goal-item { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: var(--text-mid); }
-.goal-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-
-.map-placeholder {
-  background: var(--green-light); border-radius: var(--radius-lg);
-  border: 2px dashed var(--green); min-height: 260px;
-  display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;
+/* Kolom Visual (Kiri) */
+.col-visual {
+  flex: 1.2;              /* Rasio lebar gambar lebih besar sedikit */
+  position: relative;     /* Penting untuk posisi absolut label overlay */
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  display: flex;          /* Memungkinkan gambar di dalamnya mengambil tinggi penuh */
 }
-.map-placeholder-inner { text-align: center; color: var(--green-dark); padding: 2rem; }
-.map-placeholder-inner p { font-weight: 600; margin: 0.5rem 0 0.25rem; }
-.map-placeholder-inner small { font-size: 12px; color: var(--text-light); }
-.rounded-img { border-radius: var(--radius-lg); width: 100%; object-fit: cover; }
+
+/* Gambar Utama Map Lokasi */
+.square-img-main {
+  width: 100%;
+  height: 100%;           /* Mengikuti tinggi .col-visual secara penuh */
+  min-height: 400px;      /* Batas tinggi minimal agar tidak terlalu kecil di layar tanggung */
+  object-fit: cover;      /* Memotong gambar secara proporsional agar tidak gepeng */
+  display: block;
+  border-radius: var(--radius-lg);
+}
+
+/* Kolom Tabel (Kanan) */
+.pvbg-table-container {  /* Pastikan nama class ini membungkus .pvmbg-table jika ada */
+  flex: 0.8;
+  display: flex;
+  flex-direction: column;
+}
+
+.pvmbg-table {
+  width: 100%;
+  min-width: 300px;
+  height: 100%;           /* Memaksa tabel mengambil tinggi vertikal yang sama */
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+/* Pastikan elemen table di dalam pembungkus mengambil sisa ruang */
+.pvmbg-table table {
+  flex: 1;
+  width: 100%;
+}
+
+/* Gaya Label di dalam gambar (Tetap Aman) */
+.map-overlay-label {
+  position: absolute;
+  bottom: 15px; 
+  left: 15px;   
+  background: rgba(255, 255, 255, 0.95); 
+  padding: 10px 15px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  border-left: 4px solid var(--green);
+  z-index: 2;
+}
+
+.map-overlay-label p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.3;
+  color: var(--text-dark);
+  font-weight: 500;
+}
 
 /* PVMBG Table */
 .two-col-location {

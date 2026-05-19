@@ -232,6 +232,22 @@ ul { padding-left: 1.25rem; }
 .rounded-img { border-radius: var(--radius-lg); width: 100%; object-fit: cover; }
 
 /* PVMBG Table */
+.two-col-location {
+  display: flex;             /* Menggunakan flexbox */
+  align-items: flex-end;     /* Paksa semua isi di dalam untuk rata bawah */
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+/* Pastikan kolom kiri dan kanan bisa menyesuaikan */
+.col-visual {
+  flex: 1.2;                 /* Mengambil rasio lebar yang sama seperti grid tadi */
+}
+
+.pvmbg-table {
+  flex: 0.8;                 /* Mengambil rasio lebar yang sama */
+  align-self: flex-end;      /* Memastikan tabel menempel ke bawah */
+}
 .pvmbg-table { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
 .table-title { background: var(--green-dark); color: white; padding: 10px 14px; font-size: 13px; font-weight: 600; }
 table { width: 100%; border-collapse: collapse; font-size: 14px; background: white; }

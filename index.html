@@ -1109,20 +1109,7 @@
         <img src="assets/logo-itera.png" alt="Logo ITERA" style="height:70px"/>
         Simpan file logo di: assets/logo-itera.png
       -->
-      <!--
-        ╔══════════════════════════════════════════════════════╗
-        ║  LOGO ITERA — Section "Tim Pengembang"              ║
-        ║  Ganti div ini setelah logo tersedia:               ║
-        ║  <img src="assets/logo-itera.png"                   ║
-        ║       alt="Logo Institut Teknologi Sumatera"        ║
-        ║       style="height:70px;width:auto"/>              ║
-        ║  Simpan logo di: assets/logo-itera.png              ║
-        ║  Format: PNG transparan, tinggi ≥140px              ║
-        ╚══════════════════════════════════════════════════════╝
-      -->
-      <img src="assets/logo-itera.png"                   
-               alt="Logo Institut Teknologi Sumatera"        
-               style="height:70px;width:auto"/>INSTITUT TEKNOLOGI SUMATERA</div>
+      <div class="logo-placeholder">ITERA</div>
       <div class="project-info-grid">
         <div><span class="pi-label">Mata Kuliah</span><span class="pi-val">Capstone Design</span></div>
         <div><span class="pi-label">Program Studi</span><span class="pi-val">Teknik Geologi</span></div>
@@ -1134,23 +1121,6 @@
     </div>
 
     <!-- Team Members -->
-    <h3 class="subsection-title fade-in" style="color:white">Anggota Tim</h3>
-    <div class="team-grid fade-in">
-      <div class="team-card">
-        <!-- 
-          KETERANGAN: Ganti <div class="avatar"> dengan foto anggota tim.
-          <img src="assets/foto-gebi.jpg" alt="Gebi Santaria" class="team-photo"/>
-          Ukuran foto: 200x200px, format JPG, dibuat bulat dengan CSS border-radius:50%
-        -->
-        <!--
-          FOTO ANGGOTA 1 — Gebi Santaria Nainggolan
-          Setelah foto tersedia, ganti div avatar berikut dengan:
-          <img src="assets/foto-gebi.jpg" alt="Gebi Santaria Nainggolan"
-               class="team-photo" loading="lazy"/>
-          Siapkan foto: 200×200px, crop wajah (close-up), format JPG
-          Simpan di: assets/foto-gebi.jpg
-        -->
-        <!-- Team Members -->
     <h3 class="subsection-title fade-in" style="color:white">Anggota Tim</h3>
     <div class="team-grid fade-in">
       <div class="team-card">
@@ -1180,6 +1150,7 @@
         <div class="team-bio">Menyusun laporan ilmiah, visualisasi hasil penelitian, analisis mitigasi, dan pengembangan prototipe website ini.</div>
       </div>
     </div>
+
     <!-- Supervisors -->
     <h3 class="subsection-title fade-in" style="color:white">Pembimbing &amp; Koordinator</h3>
     <div class="supervisor-grid fade-in">
@@ -1246,6 +1217,12 @@
     </div>
   </div>
 </footer>
+
+<!-- Scroll to top button -->
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll ke atas">↑</button>
+
+<!-- Tooltip container -->
+<div id="tooltip" class="tooltip-box" style="display:none"></div>
 
 
 <!-- ==========================================

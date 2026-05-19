@@ -221,7 +221,10 @@
           ║  Ukuran: 600×400px ke atas, format JPG/WebP          ║
           ╚══════════════════════════════════════════════════════╝
         -->
-        <div class="map-placeholder">
+        <img src="assets/foto-lokasi.jpg.png"                 
+                 alt="Lokasi penelitian Kec. Panjang"        
+                 class="rounded-img"                           
+                 style="width:100%;max-height:300px;object-fit:cover"/>
           <div class="map-placeholder-inner">
             <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
               <circle cx="40" cy="30" r="18" stroke="#1D9E75" stroke-width="2" fill="#E1F5EE"/>
@@ -264,7 +267,7 @@
       </a>
       <a href="#peta" class="zone-card" style="--zone-color: #EF9F27; --zone-bg: #FAEEDA">
         <div class="zone-card-top">
-          <span class="zone-label">Kerentanan Menengah</span>
+          <span class="zone-label">Kerentanan Sedang</span>
           <span class="zone-prob">0.50–0.75</span>
         </div>
         <div class="zone-area">2.19 km² · <strong>16.60%</strong></div>
@@ -346,11 +349,11 @@
             </label>
             <label class="layer-item">
               <input type="checkbox" checked onchange="toggleLayer('rendah', this.checked)">
-              <span class="layer-dot" style="background:#378ADD"></span> Rendah
+              <span class="layer-dot" style="background:#3ecf00"></span> Rendah
             </label>
             <label class="layer-item">
               <input type="checkbox" checked onchange="toggleLayer('sangat-rendah', this.checked)">
-              <span class="layer-dot" style="background:#888780"></span> Sangat Rendah
+              <span class="layer-dot" style="background:#267d00"></span> Sangat Rendah
             </label>
             <label class="layer-item">
               <input type="checkbox" checked onchange="toggleLayer('titik-longsor', this.checked)">
@@ -368,8 +371,8 @@
           <div class="legend-title">Legenda Kerentanan Longsor</div>
           <div class="legend-item"><span style="background:#E24B4A"></span> Tinggi (0.75–1.00)</div>
           <div class="legend-item"><span style="background:#EF9F27"></span> Menengah (0.50–0.75)</div>
-          <div class="legend-item"><span style="background:#378ADD"></span> Rendah (0.25–0.50)</div>
-          <div class="legend-item"><span style="background:#888780"></span> Sangat Rendah (0.00–0.25)</div>
+          <div class="legend-item"><span style="background:#3ecf00"></span> Rendah (0.25–0.50)</div>
+          <div class="legend-item"><span style="background:#267d00"></span> Sangat Rendah (0.00–0.25)</div>
           <div class="legend-item"><span style="background:#7F77DD; border-radius:50%"></span> Titik Longsor</div>
           <div class="legend-source">Sumber: Pemodelan MaxEnt, 2026</div>
         </div>
@@ -385,13 +388,13 @@
           <div class="rg-icon">🟡</div>
           <div><strong>Oranye = Menengah</strong><br>Perlu kajian geoteknik sebelum membangun. Pantau retakan tanah saat hujan deras.</div>
         </div>
-        <div class="rg-card" style="--c:#378ADD">
-          <div class="rg-icon">🔵</div>
-          <div><strong>Biru = Rendah</strong><br>Waspadai saat curah hujan ekstrem. Jaga tutupan vegetasi di sekitar rumah.</div>
+        <div class="rg-card" style="--c:#3ecf00">
+          <div class="rg-icon">🟢</div>
+          <div><strong>Hijau Muda = Rendah</strong><br>Waspadai saat curah hujan ekstrem. Jaga tutupan vegetasi di sekitar rumah.</div>
         </div>
-        <div class="rg-card" style="--c:#888780">
-          <div class="rg-icon">⚪</div>
-          <div><strong>Abu = Sangat Rendah</strong><br>Dataran pesisir relatif aman dari longsor. Tetap waspada terhadap banjir pesisir.</div>
+        <div class="rg-card" style="--c:#267d00">
+          <div class="rg-icon">🟢</div>
+          <div><strong>Hijau Tua = Sangat Rendah</strong><br>Dataran pesisir relatif aman dari longsor. Tetap waspada terhadap banjir pesisir.</div>
         </div>
       </div>
     </div>
@@ -443,7 +446,7 @@
           <div class="video-embed-wrap" id="youtube-wrap">
             <iframe
               id="youtube-embed"
-              src="https://www.youtube.com/embed/VIDEO_ID_YOUTUBE?autoplay=0&rel=0&modestbranding=1"
+              src="https://youtu.be/wqpxaVWqdoQ?si=N-JlC0sZABX0Mekp"
               title="Animasi Model 3D Kerentanan Longsor Kecamatan Panjang"
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -456,7 +459,7 @@
               <div class="vp-content">
                 <div class="vp-icon">🎬</div>
                 <div class="vp-title">Video Model 3D Kerentanan Longsor</div>
-                <div class="vp-sub">Ganti <code>VIDEO_ID_YOUTUBE</code> di index.html<br>dengan ID video YouTube animasi 3D Anda</div>
+                <div class="vp-sub">Ganti <code>N-JlC0sZABX0Mekp</code> di index.html<br>dengan ID video YouTube animasi 3D Anda</div>
                 <div class="vp-steps">
                   <div>1. Rekam animasi QGIS 3D View dengan OBS / Loom</div>
                   <div>2. Upload ke YouTube sebagai Unlisted</div>
@@ -472,8 +475,8 @@
             <div class="legend3d-title">Zona Kerentanan</div>
             <div class="legend3d-item"><span style="background:#E24B4A"></span>Tinggi (0.75–1.00)</div>
             <div class="legend3d-item"><span style="background:#EF9F27"></span>Menengah (0.50–0.75)</div>
-            <div class="legend3d-item"><span style="background:#378ADD"></span>Rendah (0.25–0.50)</div>
-            <div class="legend3d-item"><span style="background:#888780"></span>Sangat Rendah (0.00–0.25)</div>
+            <div class="legend3d-item"><span style="background:#3ecf00"></span>Rendah (0.25–0.50)</div>
+            <div class="legend3d-item"><span style="background:#267d00"></span>Sangat Rendah (0.00–0.25)</div>
           </div>
         </div>
 
@@ -482,26 +485,26 @@
           <div class="ext-3d-title">🔗 Jelajahi Model 3D Interaktif</div>
           <div class="ext-3d-grid">
 
-            <!-- SKETCHFAB LINK -->
+            <!-- TRIPO3D LINK -->
             <!-- CARA: Upload model GLB ke sketchfab.com (gratis) → salin URL → tempel di href -->
-            <a href="https://sketchfab.com/YOUR_MODEL_URL"
+            <a href="https://studio.tripo3d.ai/3d-model/8b5ecad6-e89c-4446-9edf-7a4bde296fed?invite_code=BT80NS"
                target="_blank" rel="noopener noreferrer"
-               class="ext-3d-card" id="sketchfab-link"
-               onclick="if(this.href.includes('YOUR_MODEL_URL')){alert('Tempel URL Sketchfab Anda di index.html, cari id=sketchfab-link');return false}">
+               class="ext-3d-card" id="TRIPO3D-link"
+               onclick="if(this.href.includes('https://studio.tripo3d.ai/3d-model/8b5ecad6-e89c-4446-9edf-7a4bde296fed?invite_code=BT80NS')){alert('Tempel URL TRIPO3D Anda di index.html, cari id=TRIPO3D-link');return false}">
               <div class="ext-3d-logo">
                 <svg viewBox="0 0 24 24" width="28" height="28" fill="white">
                   <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.1 8.9l-5.1 2.9-5.1-2.9V6.1l5.1 2.9 5.1-2.9v2.8zm0 6.2l-5.1 2.9-5.1-2.9v-2.8l5.1 2.9 5.1-2.9v2.8z"/>
                 </svg>
               </div>
               <div class="ext-3d-info">
-                <div class="ext-3d-name">Sketchfab</div>
-                <div class="ext-3d-desc">Jelajahi model 3D interaktif — putar 360°, zoom, klik zona</div>
+                <div class="ext-3d-name">TRIPO3D</div>
+                <div class="ext-3d-desc">Jelajahi model 3D interaktif — putar 360°, zoom</div>
               </div>
               <div class="ext-3d-arrow">→</div>
             </a>
 
             <!-- GOOGLE EARTH LINK -->
-            <a href="https://earth.google.com/web/@-5.425,105.310,0a,15000d,35y,0h,0t,0r"
+            <a href="https://earth.google.com/web/@-5.44999258,105.30799145,36.71929438a,29724.48721978d,30.00000054y,-0h,0t,0r/data=CgRCAggBMigKJgokCiAxSndIUG0xbmtONmVsTmRmeVFFcmRlOTZXLWhvdm5kWSACOgMKATBCAggASggI9Ln-mwYQAQ"
                target="_blank" rel="noopener noreferrer"
                class="ext-3d-card">
               <div class="ext-3d-logo" style="background:linear-gradient(135deg,#4285F4,#34A853)">
@@ -517,7 +520,7 @@
             </a>
 
             <!-- GEOPORTAL BIG / DEMNAS LINK -->
-            <a href="https://tanahair.indonesia.go.id/demnas/"
+            <a href="https://tanahair.indonesia.go.id/portal-web/unduh/demnas"
                target="_blank" rel="noopener noreferrer"
                class="ext-3d-card">
               <div class="ext-3d-logo" style="background:linear-gradient(135deg,#1D9E75,#0F6E56)">
@@ -566,13 +569,6 @@
           4. Simpan di folder assets/ dengan nama model-panjang.glb
           5. Uncomment baris loadRealModel() di js/map3d.js
         -->
-        <div class="model-note">
-          <strong>💡 Catatan Model 3D:</strong> Model terrain saat ini adalah representasi parametrik berbasis data ketinggian DEM Kecamatan Panjang. 
-          Untuk menggunakan model 3D nyata hasil ekspor QGIS2threejs, simpan file <code>model-panjang.glb</code> di folder <code>assets/</code> 
-          dan aktifkan fungsi <code>loadRealModel()</code> di <code>js/map3d.js</code>.
-        </div>
-      </div>
-    </div>
 
   </div>
 </section>
@@ -785,29 +781,35 @@
         ╚══════════════════════════════════════════════════════════╝
       -->
       <!-- FOTO 1: Survei GPS — ganti div ini dengan <img> jika foto sudah tersedia -->
-      <div class="photo-placeholder" id="photo-gps">
-        <div>📷<br><b>Survei GPS</b><br><small>Simpan sebagai:<br>assets/foto-survei-gps.jpg</small></div>
-      </div>
+      <img src="assets/foto-survei-gps.jpg.jpeg"                  
+               alt="Pengambilan koordinat GPS lokasi longsor"     
+               class="gallery-img"                                
+               loading="lazy"/>
       <!-- FOTO 2: Kondisi Lereng -->
-      <div class="photo-placeholder" id="photo-lereng">
-        <div>📷<br><b>Kondisi Lereng</b><br><small>Simpan sebagai:<br>assets/foto-lereng.jpg</small></div>
-      </div>
+      <img src="assets/foto-lereng.jpg.jpeg"                  
+               alt="Kondisi Lereng"     
+               class="gallery-img"                                
+               loading="lazy"/>
       <!-- FOTO 3: Batuan Tuf/Breksi di Lapangan -->
-      <div class="photo-placeholder" id="photo-batuan">
-        <div>📷<br><b>Batuan Tuf</b><br><small>Simpan sebagai:<br>assets/foto-batuan.jpg</small></div>
-      </div>
+      <img src="assets/foto-batuan.jpg.jpeg"                  
+               alt="Kondisi Batuan"     
+               class="gallery-img"                                
+               loading="lazy"/>
       <!-- FOTO 4: Erosi Kaki Lereng/Sungai -->
-      <div class="photo-placeholder" id="photo-sungai">
-        <div>📷<br><b>Erosi Sungai</b><br><small>Simpan sebagai:<br>assets/foto-sungai.jpg</small></div>
-      </div>
+      <img src="assets/foto-lereng.jpg.jpeg"                  
+               alt="Kondisi Lereng"     
+               class="gallery-img"                                
+               loading="lazy"/>
       <!-- FOTO 5: Pengolahan Data QGIS/MaxEnt -->
-      <div class="photo-placeholder" id="photo-pengolahan">
-        <div>📷<br><b>Pengolahan Data</b><br><small>Simpan sebagai:<br>assets/foto-pengolahan.jpg</small></div>
-      </div>
+      <img src="assets/foto-pengolahan.jpg.jpeg"                  
+               alt="Pengolahan Data"     
+               class="gallery-img"                                
+               loading="lazy"/>
       <!-- FOTO 6: Bimbingan/Diskusi dengan Dosen -->
-      <div class="photo-placeholder" id="photo-diskusi">
-        <div>📷<br><b>Bimbingan Dosen</b><br><small>Simpan sebagai:<br>assets/foto-diskusi.jpg</small></div>
-      </div>
+      <img src="assets/foto-diskusi.jpg.jpeg"                  
+               alt="Diskusi dengan Dosen"     
+               class="gallery-img"                                
+               loading="lazy"/>
     </div>
   </div>
 </section>
@@ -931,7 +933,7 @@
         <text x="400" y="100" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#185FA5">Infiltrasi Air Hujan</text>
         <text x="150" y="248" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#2C2C2A" font-weight="600">Aluvium</text>
         <text x="500" y="220" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#2C2C2A" font-weight="600">Tuf Lapukan (Formasi Tarahan)</text>
-        <text x="650" y="170" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#F1EFE8" font-weight="600">Batuan Dasar</text>
+        <text x="650" y="170" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#F1EFE8" font-weight="600">Batuan Kurang Stabil</text>
         <text x="455" y="125" text-anchor="start" font-family="Inter,sans-serif" font-size="11" fill="#E24B4A" font-weight="700">Sesar Lampung–Panjang</text>
         <text x="290" y="225" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#E24B4A">Bidang Gelincir Potensial</text>
         <text x="330" y="265" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#E24B4A" font-weight="700">⟵ Arah Gerakan Massa</text>
@@ -1010,8 +1012,8 @@
       </div>
 
       <div class="accordion-item" id="acc-rendah">
-        <button class="accordion-header" style="--az:#378ADD" onclick="toggleAcc('rendah')">
-          <span>🔵 Zona Kerentanan <strong>Rendah</strong> — Kel. Ketapang</span>
+        <button class="accordion-header" style="--az:#3ecf00" onclick="toggleAcc('rendah')">
+          <span>🟢 Zona Kerentanan <strong>Rendah</strong> — Kel. Ketapang</span>
           <span class="acc-chevron">▾</span>
         </button>
         <div class="accordion-body" id="body-rendah" style="display:none">
@@ -1025,8 +1027,8 @@
       </div>
 
       <div class="accordion-item" id="acc-sr">
-        <button class="accordion-header" style="--az:#888780" onclick="toggleAcc('sr')">
-          <span>⚪ Zona Kerentanan <strong>Sangat Rendah</strong> — Kel. Srengsem, Ketapang Kuala</span>
+        <button class="accordion-header" style="--az:#267d00" onclick="toggleAcc('sr')">
+          <span>🟢 Zona Kerentanan <strong>Sangat Rendah</strong> — Kel. Srengsem, Ketapang Kuala</span>
           <span class="acc-chevron">▾</span>
         </button>
         <div class="accordion-body" id="body-sr" style="display:none">
@@ -1080,7 +1082,7 @@
 
     <!-- Emergency Banner -->
     <div class="emergency-banner fade-in">
-      🆘 <strong>DARURAT BENCANA:</strong> Hubungi BPBD Kota Bandar Lampung &nbsp;|&nbsp; ☎ <strong>(0721) 483 240</strong> &nbsp;|&nbsp; Atau Hubungi Nomor Darurat Nasional <strong>112</strong>
+      🆘 <strong>DARURAT BENCANA:</strong> Hubungi BPBD Kota Bandar Lampung &nbsp;|&nbsp; ☎ <strong>0721 6016451</strong> &nbsp;|&nbsp; Atau Hubungi Nomor Darurat Nasional <strong>112</strong>
     </div>
   </div>
 </section>
@@ -1114,7 +1116,9 @@
         ║  Format: PNG transparan, tinggi ≥140px              ║
         ╚══════════════════════════════════════════════════════╝
       -->
-      <div class="logo-placeholder">ITERA</div>
+      <img src="assets/logo-itera.png"                   
+               alt="Logo Institut Teknologi Sumatera"        
+               style="height:70px;width:auto"/>ITERA</div>
       <div class="project-info-grid">
         <div><span class="pi-label">Mata Kuliah</span><span class="pi-val">Capstone Design</span></div>
         <div><span class="pi-label">Program Studi</span><span class="pi-val">Teknik Geologi</span></div>
@@ -1142,7 +1146,8 @@
           Siapkan foto: 200×200px, crop wajah (close-up), format JPG
           Simpan di: assets/foto-gebi.jpg
         -->
-        <div class="avatar" style="background:#1D9E75">GSN</div>
+        <img src="assets/foto-gebi.png" alt="Gebi Santaria Nainggolan"
+              class="team-photo" loading="lazy"/>GSN</div>
         <div class="team-name">Gebi Santaria Nainggolan</div>
         <div class="team-nim">NIM. 123150009</div>
         <div class="team-role">GIS &amp; MaxEnt Analyst</div>
@@ -1155,11 +1160,12 @@
                               class="team-photo" loading="lazy"/>
           Simpan di: assets/foto-berman.jpg | Ukuran: 200×200px JPG
         -->
-        <div class="avatar" style="background:#378ADD">BSM</div>
+        <img src="assets/foto-berman.jpg" alt="Berman Sandy Mora"
+              class="team-photo" loading="lazy"/>BSM</div>
         <div class="team-name">Berman Sandy Mora</div>
         <div class="team-nim">NIM. 123150066</div>
         <div class="team-role">Field Survey &amp; Data Collection</div>
-        <div class="team-bio">Melaksanakan survei lapangan, inventarisasi 34 titik longsor, dokumentasi kondisi geologi, dan pengumpulan data primer.</div>
+        <div class="team-bio">Melaksanakan survei lapangan, inventarisasi titik longsor, dokumentasi kondisi geologi, dan pengumpulan data primer.</div>
       </div>
       <div class="team-card">
         <!--
@@ -1168,7 +1174,8 @@
                               class="team-photo" loading="lazy"/>
           Simpan di: assets/foto-syahrani.jpg | Ukuran: 200×200px JPG
         -->
-        <div class="avatar" style="background:#EF9F27">SRPL</div>
+        <img src="assets/foto-syahrani.png" alt="Syahrani Revina Putri Latief"
+              class="team-photo" loading="lazy"/>SRPL</div>
         <div class="team-name">Syahrani Revina Putri Latief</div>
         <div class="team-nim">NIM. 123150105</div>
         <div class="team-role">Report &amp; Visualization</div>
@@ -1281,7 +1288,7 @@
         ║  gunakan href="assets/peta-kerentanan-panjang.pdf"     ║
         ╚══════════════════════════════════════════════════════════╝
       -->
-      <a href="#"
+      <a href="https://drive.google.com/uc?export=download&id=1bw3pGVHTMydAH3j7WDHfR3zr1r0aEksW"
          onclick="alert('Tautan PDF belum ditambahkan. Lihat panduan di komentar HTML download-modal.');return false"
          style="display:flex;align-items:center;gap:12px;padding:14px 16px;
                 border:1.5px solid #E24B4A;border-radius:10px;text-decoration:none;
@@ -1291,12 +1298,12 @@
         <span style="font-size:1.5rem;flex-shrink:0">🗺</span>
         <div>
           <div style="font-weight:700;font-size:14px">Peta Zonasi Kerentanan Longsor (PDF)</div>
-          <div style="font-size:12px;opacity:0.8">Resolusi tinggi · A2 · Siap cetak</div>
+          <div style="font-size:12px;opacity:0.8">Resolusi tinggi</div>
           <!-- ▼ Ganti href="#" dengan link Google Drive atau path file PDF Anda -->
         </div>
         <span style="margin-left:auto;font-size:1.2rem">↓</span>
       </a>
-      <a href="#"
+      <a href="https://drive.google.com/uc?export=download&id=1bw3pGVHTMydAH3j7WDHfR3zr1r0aEksW"
          onclick="alert('Tautan PDF poster belum ditambahkan.');return false"
          style="display:flex;align-items:center;gap:12px;padding:14px 16px;
                 border:1.5px solid #1D9E75;border-radius:10px;text-decoration:none;
@@ -1306,12 +1313,12 @@
         <span style="font-size:1.5rem;flex-shrink:0">📄</span>
         <div>
           <div style="font-weight:700;font-size:14px">Laporan Ringkas Penelitian (PDF)</div>
-          <div style="font-size:12px;opacity:0.8">Abstrak, metode, dan hasil penelitian</div>
+          <div style="font-size:12px;opacity:0.8">Bab 1 Pendahuluan</div>
           <!-- ▼ Ganti href="#" dengan link laporan PDF Anda -->
         </div>
         <span style="margin-left:auto;font-size:1.2rem">↓</span>
       </a>
-      <a href="#"
+      <a href="drive.google.com/uc?export=download&id=1JJJ-xe-vEesD3N49FojEtIVfmdHbkMqo"
          onclick="alert('Tautan poster ilmiah belum ditambahkan.');return false"
          style="display:flex;align-items:center;gap:12px;padding:14px 16px;
                 border:1.5px solid #EF9F27;border-radius:10px;text-decoration:none;
@@ -1319,12 +1326,6 @@
          onmouseover="this.style.background='#f0d9b0'"
          onmouseout="this.style.background='#FAEEDA'">
         <span style="font-size:1.5rem;flex-shrink:0">🖼</span>
-        <div>
-          <div style="font-weight:700;font-size:14px">Poster Ilmiah (PDF)</div>
-          <div style="font-size:12px;opacity:0.8">Poster pameran A1 · Capstone Design 2026</div>
-          <!-- ▼ Ganti href="#" dengan link poster PDF Anda -->
-        </div>
-        <span style="margin-left:auto;font-size:1.2rem">↓</span>
       </a>
     </div>
     <p style="margin:1rem 0 0;font-size:12px;color:#888;text-align:center">

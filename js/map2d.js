@@ -111,12 +111,12 @@ function tryLoadKML() {
 
                 placemarks.forEach(pm => {
                     // ── Baca nama & data atribut dari KML ──
-                    const DESA  = pm.querySelector('name');
-                    const Area    = DESA ? DESA.textContent.trim() : 'Area';
-                    const Zona   = getKMLData(pm, 'kelas') || detectKelasFromName(DESA);
-                    const Area    = getKMLData(pm, 'luas_km2') || '–';
-                    const Rekomendasi     = getKMLData(pm, 'rekomendasi') || 'Lihat rekomendasi mitigasi.';
-                    const Probabilitas = getKMLData(pm, 'prob_min') || '–';
+                    const desa  = pm.querySelector('name');
+                    const area    = desa ? desa.textContent.trim() : 'Area';
+                    const zona   = getKMLData(pm, 'kelas') || detectKelasFromName(desa);
+                    const area    = getKMLData(pm, 'luas_km2') || '–';
+                    const rekomendasi     = getKMLData(pm, 'rekomendasi') || 'Lihat rekomendasi mitigasi.';
+                    const probabilitas = getKMLData(pm, 'prob') || '–';
 
                     const kelasKey = kelas.toLowerCase().replace(/\s+/g, '-');
                     const color    = KELAS_COLOR[kelasKey] || KELAS_COLOR[kelas.toLowerCase()] || '#888780';

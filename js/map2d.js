@@ -24,6 +24,165 @@ const KELAS_COLOR = {
     'sangat rendah': '#888780',
     'sangat-rendah': '#888780'
 };
+// Peta warna per zona kerentanan
+const ZONA_COLORS = {
+  'Tinggi':        '#E24B4A',
+  'Menengah':      '#EF9F27',
+  'Rendah':        '#378ADD',
+  'Sangat Rendah': '#888780',
+  'High':          '#E24B4A',
+  'Medium':        '#EF9F27',
+  'Low':           '#378ADD',
+  'Very Low':      '#888780'
+};
+
+// Emoji & teks aksi per zona
+const ZONA_ACTIONS = {
+  'Tinggi': '⛔ Jangan mendirikan bangunan baru. Konsultasikan ke ahli geologi.',
+  'Menengah': '⚠️ Kajian geoteknik sebelum membangun. Pantau retakan tanah.',
+  'Rendah': 'ℹ️ Waspada hujan ekstrem. Jaga tutupan vegetasi.',
+  'Sangat Rendah': '✅ Relatif aman dari longsor. Waspadai banjir pesisir.'
+};
+
+/**
+ * Membangun HTML popup dari field atribut KML/GeoJSON
+ * @param {Object} props - feature.properties dari Leaflet GeoJSON/KML layer
+ * @returns {string} HTML string untuk popup
+ */
+function buildPopupFromProperties(props) {
+  // Baca field dengan fallback (case-insensitive)
+  const desa       = props.DESA       || props.desa       || props.Desa
+                  || props.KELURAHAN  || props.kelurahan  || props.nama
+                  || '–';
+  const zona       = props.Zona       || props.ZONA       || props.zona
+                  || props.kelas      || props.KELAS      || props.Kelas
+                  || '–';
+  const probabilitas = props.Probabilitas || props.PROBABILITAS || props.probabilitas
+                    || props.prob       || props.Prob
+                    || '–';
+  const rekomendasi = props.Rekomendasi || props.REKOMENDASI || props.rekomendasi
+                   || props.rekomen     || '–';
+
+  const color  = ZONA_COLORS[zona] || '#888780';
+  const action = ZONA_ACTIONS[zona] || 'Pantau kondisi lereng secara berkala.';
+
+  return `
+    <div style="
+      font-family: 'Inter', Arial, sans-serif;
+      min-width: 240px;
+      max-width: 300px;
+      font-size: 13px;
+      line-height: 1.55;
+    ">
+      <!-- HEADER dengan warna zona -->
+      <div style="
+        background: ${color};
+        color: white;
+        padding: 10px 14px;
+        margin: -8px -12px 12px;
+        border-radius: 6px 6px 0 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      ">
+        <strong style="font-size: 14px">${desa}</strong>
+        <span style="
+          background: rgba(0,0,0,0.2);
+          padding: 2px 8px;
+          border-radius: 10px;
+          font-size: 11px;
+          font-weight: 700;
+        ">${zona}</span>
+      </div>
+
+      <!-- BARIS: Probabilitas MaxEnt -->
+      <div style="
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 7px;
+        padding-bottom: 7px;
+        border-bottom: 1px solid #f0f0f0;
+      ">
+        <span style="
+          width: 10px; height: 10px; border-radius: 50%;
+          background: ${color}; flex-shrink: 0;
+        "></span>
+        <span style="color: #555">
+          <strong style="color: #333">Probabilitas MaxEnt:</strong>
+          <span style="
+            font-family: 'Courier New', monospace;
+            background: #f5f5f0;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 4px;
+          ">${probabilitas}</span>
+        </span>
+      </div>
+
+      <!-- BARIS: Rekomendasi dari field -->
+      <div style="
+        background: #f9f9f6;
+        padding: 8px 10px;
+        border-radius: 7px;
+        border-left: 3px solid ${color};
+        font-size: 12px;
+        color: #444;
+        margin-bottom: 7px;
+      ">
+        <strong style="display:block;margin-bottom:3px;color:#333">Rekomendasi:</strong>
+        ${rekomendasi !== '–' ? rekomendasi : action}
+      </div>
+
+      <!-- STATUS TINDAKAN -->
+      <div style="
+        font-size: 11.5px;
+        color: ${color};
+        font-weight: 600;
+        padding: 5px 8px;
+        background: ${color}15;
+        border-radius: 5px;
+      ">${action}</div>
+    </div>
+  `;
+}
+
+/**
+ * Menerapkan popup ke layer GeoJSON/KML yang sudah dimuat Leaflet
+ * Panggil ini setelah layer berhasil dimuat:
+ *   layer.eachLayer(l => applyKMLPopup(l));
+ */
+function applyKMLPopup(layer) {
+  if (!layer.feature || !layer.feature.properties) return;
+  const props = layer.feature.properties;
+  const zona  = props.Zona || props.ZONA || props.zona || props.kelas || '';
+  const color = ZONA_COLORS[zona] || '#888780';
+
+  // Set warna polygon sesuai zona dari field atribut
+  if (typeof layer.setStyle === 'function') {
+    layer.setStyle({
+      color:       color,
+      weight:      2.5,
+      opacity:     0.95,
+      fillColor:   color,
+      fillOpacity: 0.42
+    });
+
+    layer.on('mouseover', function() {
+      this.setStyle({ fillOpacity: 0.68, weight: 3.5 });
+    });
+    layer.on('mouseout', function() {
+      this.setStyle({ fillOpacity: 0.42, weight: 2.5 });
+    });
+  }
+
+  // Bind popup
+  layer.bindPopup(buildPopupFromProperties(props), {
+    maxWidth: 320,
+    className: 'custom-popup'
+  });
+}
 
 // ── INISIALISASI PETA ──────────────────────────────────────
 function initMap2D() {

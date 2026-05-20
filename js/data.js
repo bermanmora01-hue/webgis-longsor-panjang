@@ -221,41 +221,41 @@ const KELURAHAN_DATA = [
 const LANDSLIDE_POINTS = [
   // ─── DATA TRAINING (75%) — 26 titik ─────────────────────
   // ▼ GANTI lon dan lat setiap titik dengan koordinat nyata dari QGIS
-  { lon: 105.318, lat: -5.414, type: "train", id: 1  }, // ← GANTI koordinat nyata titik 1
-  { lon: 105.316, lat: -5.431, type: "train", id: 2  }, // ← GANTI
-  { lon: 105.314, lat: -5.411, type: "train", id: 3  }, // ← GANTI
-  { lon: 105.308, lat: -5.406, type: "train", id: 4  }, // ← GANTI
-  { lon: 105.316, lat: -5.407, type: "train", id: 5  }, // ← GANTI
-  { lon: 105.312, lat: -5.407, type: "train", id: 6  }, // ← GANTI
-  { lon: 105.314, lat: -5.404, type: "train", id: 7  }, // ← GANTI
-  { lon: 105.316, lat: -5.431, type: "train", id: 8  }, // ← GANTI
-  { lon: 105.312, lat: -5.401, type: "train", id: 9  }, // ← GANTI
-  { lon: 105.308, lat: -5.406, type: "train", id: 10 }, // ← GANTI
-  { lon: 105.304, lat: -5.402, type: "train", id: 11 }, // ← GANTI
-  { lon: 105.318, lat: -5.412, type: "train", id: 12 }, // ← GANTI
-  { lon: 105.326, lat: -5.431, type: "train", id: 13 }, // ← GANTI
-  { lon: 105.318, lat: -5.428, type: "train", id: 14 }, // ← GANTI
-  { lon: 105.308, lat: -5.406, type: "train", id: 15 }, // ← GANTI
-  { lon: 105.308, lat: -5.406, type: "train", id: 16 }, // ← GANTI
-  { lon: 105.310, lat: -5.411, type: "train", id: 17 }, // ← GANTI
-  { lon: 105.316, lat: -5.431, type: "train", id: 18 }, // ← GANTI
-  { lon: 105.328, lat: -5.434, type: "train", id: 19 }, // ← GANTI
-  { lon: 105.318, lat: -5.430, type: "train", id: 20 }, // ← GANTI
-  { lon: 105.304, lat: -5.402, type: "train", id: 21 }, // ← GANTI
-  { lon: 105.315, lat: -5.413, type: "train", id: 22 }, // ← GANTI
-  { lon: 105.312, lat: -5.422, type: "train", id: 23 }, // ← GANTI
-  { lon: 105.322, lat: -5.426, type: "train", id: 24 }, // ← GANTI
-  { lon: 105.317, lat: -5.427, type: "train", id: 25 }, // ← GANTI
-  { lon: 105.315, lat: -5.420, type: "train", id: 26 }, // ← GANTI
+  { lon: 105.320718198814347, lat: -5.456568596415833, type: "train", id: 1  }, // ← GANTI koordinat nyata titik 1
+  { lon: 105.321779603852363, lat: -5.45668707024593, type: "train", id: 2  }, // ← GANTI
+  { lon: 105.321697099923227, lat: -5.456544109675084, type: "train", id: 3  }, // ← GANTI
+  { lon: 105.335288095929769, lat: -5.493914533193105, type: "train", id: 4  }, // ← GANTI
+  { lon: 105.321477597781723, lat: -5.462127526127056, type: "train", id: 5  }, // ← GANTI
+  { lon: 105.328428399303959, lat: -5.480612170604447, type: "train", id: 6  }, // ← GANTI
+  { lon: 105.325994599849551, lat: -5.482052230796344, type: "train", id: 7  }, // ← GANTI
+  { lon: 105.323541196658965, lat: -5.46474802250419, type: "train", id: 8  }, // ← GANTI
+  { lon: 105.323930001102951, lat: -5.466168423985948, type: "train", id: 9  }, // ← GANTI
+  { lon: 105.331229995860483, lat: -5.483429148463014, type: "train", id: 10 }, // ← GANTI
+  { lon: 105.32253449996972, lat: -5.482552884635393, type: "train", id: 11 }, // ← GANTI
+  { lon: 105.334861396256329, lat: -5.486454373294917, type: "train", id: 12 }, // ← GANTI
+  { lon: 105.336907395792821, lat: -5.488647383933681, type: "train", id: 13 }, // ← GANTI
+  { lon: 105.32305649859606, lat: -5.478879652189929, type: "train", id: 14 }, // ← GANTI
+  { lon: 105.323382703381299, lat: -5.460033820729036, type: "train", id: 15 }, // ← GANTI
+  { lon: 105.318900497360914, lat: -5.465700001434514, type: "train", id: 16 }, // ← GANTI
+  { lon: 105.323602798179195, lat: -5.478301639671337, type: "train", id: 17 }, // ← GANTI
+  { lon: 105.331606303861349, lat: -5.482136852061283, type: "train", id: 18 }, // ← GANTI
+  { lon: 105.327373101021763, lat: -5.469744809665563, type: "train", id: 19 }, // ← GANTI
+  { lon: 105.320972496958959, lat: -5.463646777927631, type: "train", id: 20 }, // ← GANTI
+  { lon: 105.316881799172108, lat: -5.461895803416436, type: "train", id: 21 }, // ← GANTI
+  { lon: 105.325815898418725, lat: -5.462301610375523, type: "train", id: 22 }, // ← GANTI
+  { lon: 105.32500939976552, lat: -5.486811756598208, type: "train", id: 23 }, // ← GANTI
+  { lon: 105.326046097425092, lat: -5.482525561515589, type: "train", id: 24 }, // ← GANTI
+  { lon: 105.326344296127573, lat: -5.466957205761553, type: "train", id: 25 }, // ← GANTI
+  { lon: 105.327053997129312, lat: -5.483755277398402, type: "train", id: 26 }, // ← GANTI
   // ─── DATA TEST (25%) — 8 titik ───────────────────────────
-  { lon: 105.326, lat: -5.431, type: "test", id: 27 }, // ← GANTI
-  { lon: 105.288, lat: -5.385, type: "test", id: 28 }, // ← GANTI
-  { lon: 105.322, lat: -5.426, type: "test", id: 29 }, // ← GANTI
-  { lon: 105.326, lat: -5.431, type: "test", id: 30 }, // ← GANTI
-  { lon: 105.316, lat: -5.431, type: "test", id: 31 }, // ← GANTI
-  { lon: 105.310, lat: -5.412, type: "test", id: 32 }, // ← GANTI
-  { lon: 105.328, lat: -5.434, type: "test", id: 33 }, // ← GANTI
-  { lon: 105.328, lat: -5.434, type: "test", id: 34 }  // ← GANTI
+  { lon: 105.320147899327949, lat: -5.466530054686366, type: "test", id: 27 }, // ← GANTI
+  { lon: 105.327399800769641, lat: -5.470236780413233, type: "test", id: 28 }, // ← GANTI
+  { lon: 105.313462804166264, lat: -5.457353829102761, type: "test", id: 29 }, // ← GANTI
+  { lon: 105.306691399813772, lat: -5.447483005876231, type: "test", id: 30 }, // ← GANTI
+  { lon: 105.327001398934897, lat: -5.485805830561294, type: "test", id: 31 }, // ← GANTI
+  { lon: 105.300942497188259, lat: -5.442276814861726, type: "test", id: 32 }, // ← GANTI
+  { lon: 105.318595796417313, lat: -5.475751363393285, type: "test", id: 33 }, // ← GANTI
+  { lon: 105.322133798599197, lat: -5.474933880359378, type: "test", id: 34 }  // ← GANTI
 ];
 
 // ============================================================

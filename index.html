@@ -400,178 +400,143 @@
     </div>
 
     <!-- ====== 3D GEOPORTAL VIEWER ====== -->
-    <div id="viewer-3d" class="viewer-panel fade-in" style="display:none">
-      <div class="viewer3d-wrap">
-        <div class="viewer3d-header">
-          <div class="viewer3d-title">
-            🌐 Model 3D Geoportal — Kecamatan Panjang
-            <span class="badge badge-green">Interaktif</span>
-          </div>
-          <div class="viewer3d-hint">
-            Visualisasi tiga dimensi distribusi kerentanan longsor berbasis model MaxEnt &amp; DEM DEMNAS
+    <!-- ============================================
+     SOLUSI 6: VIDEO 3D MODEL — YouTube Embed
+     Tidak perlu file GLB, tidak perlu Three.js
+     100% pasti tampil di semua device
+     ============================================ -->
+<div id="viewer-3d" style="display:none">
+  <div style="max-width:900px;margin:0 auto">
+
+    <!-- VIDEO UTAMA — YouTube Embed -->
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/_ZKbLh4dnmY?si=WZMXWJc6pM1ksKEi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <div class="video-wrapper" style="border-radius:16px;overflow:hidden;
+         box-shadow:0 16px 48px rgba(0,0,0,0.3);margin-bottom:1.5rem">
+      <iframe
+        id="youtube-3d"
+        src="https://www.youtube.com/embed/GANTI_DENGAN_ID_VIDEO_ANDA?rel=0&modestbranding=1&color=white"
+        title="Animasi 3D Model Kerentanan Longsor Kecamatan Panjang"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope"
+        allowfullscreen
+        loading="lazy"
+        style="position:absolute;inset:0;width:100%;height:100%;border:none">
+      </iframe>
+      <!-- Overlay panduan jika video belum diisi -->
+      <div id="video-placeholder" style="position:absolute;inset:0;
+           background:linear-gradient(135deg,#0d1520,#1a2f45);
+           display:flex;align-items:center;justify-content:center;flex-direction:column;
+           gap:1rem;padding:2rem;text-align:center">
+        <div style="font-size:3rem">🎬</div>
+        <div style="color:white;font-size:1.1rem;font-weight:600">
+          Video Animasi 3D Kerentanan Longsor
+        </div>
+        <div style="color:rgba(255,255,255,0.7);font-size:0.9rem;max-width:400px;line-height:1.6">
+          Video animasi 3D model sedang disiapkan.<br>
+          Sementara itu, jelajahi model interaktif melalui tautan di bawah.
+        </div>
+      </div>
+    </div>
+
+    <!-- INFO BAR -->
+    <div style="background:#1a2f45;border-radius:12px;padding:1rem 1.5rem;
+         display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;
+         flex-wrap:wrap">
+      <div style="color:#1D9E75;font-size:1.3rem">ℹ️</div>
+      <div style="color:rgba(255,255,255,0.85);font-size:13px;line-height:1.6;flex:1">
+        Model 3D dibangun dari <strong style="color:#E2C06A">DEM DEMNAS 30m (BIG)</strong>
+        divisualisasikan dengan <strong style="color:#E2C06A">QGIS 3D Map View</strong>
+        dan diwarnai berdasarkan probabilitas kerentanan MaxEnt.
+        <strong style="color:#E24B4A">Zona merah = probabilitas longsor tertinggi.</strong>
+      </div>
+    </div>
+
+    <!-- TAUTAN EKSPLORASI 3D -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+         gap:0.75rem;margin-bottom:1rem">
+
+      <!-- Tautan 1: Sketchfab atau Tripo3D -->
+      <a href="https://studio.tripo3d.ai/3d-model/8b5ecad6-e89c-4446-9edf-7a4bde296fed?invite_code=BT80NS"
+         target="_blank" rel="noopener"
+         style="display:flex;align-items:center;gap:12px;padding:1rem 1.25rem;
+                background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);
+                border-radius:10px;text-decoration:none;transition:all 0.2s;
+                color:white"
+         onmouseover="this.style.background='rgba(29,158,117,0.15)';this.style.borderColor='rgba(29,158,117,0.4)'"
+         onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.borderColor='rgba(255,255,255,0.12)'">
+        <span style="font-size:1.8rem;flex-shrink:0">🌐</span>
+        <div>
+          <div style="font-weight:600;font-size:14px">Model 3D Interaktif</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.6)">
+            Putar 360°, zoom, dan jelajahi terrain →
           </div>
         </div>
+      </a>
 
-        <!-- ══════════════════════════════════════════════════════
-             VIDEO MODEL 3D
-             ══════════════════════════════════════════════════════
-             CARA MEMASANG VIDEO:
-             1. Rekam animasi model 3D dari QGIS:
-                - Buka 3D Map View di QGIS
-                - Putar/geser model sambil screen-record
-                - Gunakan OBS Studio (gratis) atau Loom (online)
-                - Export sebagai MP4, resolusi 1280×720 atau 1920×1080
-             2. Kompres video agar <20MB:
-                - Gunakan HandBrake (gratis): handbrake.fr
-                - Setting: MP4, H.264, Quality RF 28, 720p
-             3. Upload ke YouTube sebagai Unlisted (tidak publik, tidak private)
-             4. Atau upload ke Google Drive → salin URL embed
-             5. Ganti src video atau URL embed di bawah ini
-             ══════════════════════════════════════════════════════ -->
-        <div class="viewer3d-main" id="viewer3d-main">
-
-          <!-- OPSI A: Video MP4 Lokal (jika file <25MB) -->
-          <!-- Hapus komentar di bawah jika punya file video lokal -->
-          <!--
-          <video id="video-3d" class="video-3d" controls autoplay muted loop playsinline
-                 poster="assets/thumb-3d.jpg">
-            <source src="assets/animasi-3d.mp4" type="video/mp4">
-            Browser Anda tidak mendukung tag video.
-          </video>
-          -->
-
-          <!-- OPSI B: Embed YouTube (DIREKOMENDASIKAN) -->
-          <!-- Ganti VIDEO_ID_YOUTUBE dengan ID video YouTube Anda -->
-          <!-- Contoh: https://www.youtube.com/watch?v=ABC123XYZ → ID = ABC123XYZ -->
-          <div class="video-embed-wrap" id="youtube-wrap">
-            <iframe
-              id="N-JlC0sZABX0Mekp"
-              src="https://youtu.be/wqpxaVWqdoQ?si=N-JlC0sZABX0Mekp"
-              title="Animasi Model 3D Kerentanan Longsor Kecamatan Panjang"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-              loading="lazy"
-              style="width:100%;height:100%;border:none;border-radius:0">
-            </iframe>
-            <!-- Placeholder tampil sebelum video diisi -->
-            <div class="video-placeholder" id="video-placeholder">
-              <div class="vp-content">
-                <div class="vp-icon">🎬</div>
-                <div class="vp-title">Video Model 3D Kerentanan Longsor</div>
-                <div class="vp-sub">Ganti <code>N-JlC0sZABX0Mekp</code> di index.html<br>dengan ID video YouTube animasi 3D Anda</div>
-                <div class="vp-steps">
-                  <div>1. Rekam animasi QGIS 3D View dengan OBS / Loom</div>
-                  <div>2. Upload ke YouTube sebagai Unlisted</div>
-                  <div>3. Salin ID video (bagian setelah <code>?v=</code>)</div>
-                  <div>4. Tempel ID ke src iframe di atas</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Legenda zona (tetap di sisi video) -->
-          <div class="legend3d">
-            <div class="legend3d-title">Zona Kerentanan</div>
-            <div class="legend3d-item"><span style="background:#E24B4A"></span>Tinggi (0.75–1.00)</div>
-            <div class="legend3d-item"><span style="background:#EF9F27"></span>Menengah (0.50–0.75)</div>
-            <div class="legend3d-item"><span style="background:#3ecf00"></span>Rendah (0.25–0.50)</div>
-            <div class="legend3d-item"><span style="background:#267d00"></span>Sangat Rendah (0.00–0.25)</div>
+      <!-- Tautan 2: Google Earth Web -->
+      <a href=""https://earth.google.com/web/@-5.47196674,105.32012804,2.41590831a,17837.30035841d,30y,0h,0t,0r/data=CgRCAggBMigKJgokCiAxTUlxTWY4Vk0wNXhkVC1TTzlvdGc0U1Y5Zl8xVmc3QSACOgMKATBCAggASggIv4n98AcQAQ?authuser=0"
+         target="_blank" rel="noopener"
+         style="display:flex;align-items:center;gap:12px;padding:1rem 1.25rem;
+                background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);
+                border-radius:10px;text-decoration:none;transition:all 0.2s;
+                color:white"
+         onmouseover="this.style.background='rgba(55,138,221,0.15)';this.style.borderColor='rgba(55,138,221,0.4)'"
+         onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.borderColor='rgba(255,255,255,0.12)'">
+        <span style="font-size:1.8rem;flex-shrink:0">🌍</span>
+        <div>
+          <div style="font-weight:600;font-size:14px">Google Earth Web</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.6)">
+            Terrain 3D Kecamatan Panjang →
           </div>
         </div>
+      </a>
 
-        <!-- ── PANEL LINK EKSTERNAL 3D ─────────────────────── -->
-        <div class="ext-3d-links">
-          <div class="ext-3d-title">🔗 Jelajahi Model 3D Interaktif</div>
-          <div class="ext-3d-grid">
-
-            <!-- TRIPO3D LINK -->
-            <!-- CARA: Upload model GLB ke sketchfab.com (gratis) → salin URL → tempel di href -->
-            <a href="https://studio.tripo3d.ai/3d-model/8b5ecad6-e89c-4446-9edf-7a4bde296fed?invite_code=BT80NS"
-               target="_blank" rel="noopener noreferrer"
-               class="ext-3d-card" id="TRIPO3D-link"
-               onclick="if(this.href.includes('https://studio.tripo3d.ai/3d-model/8b5ecad6-e89c-4446-9edf-7a4bde296fed?invite_code=BT80NS')){alert('Tempel URL TRIPO3D Anda di index.html, cari id=TRIPO3D-link');return false}">
-              <div class="ext-3d-logo">
-                <svg viewBox="0 0 24 24" width="28" height="28" fill="white">
-                  <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.1 8.9l-5.1 2.9-5.1-2.9V6.1l5.1 2.9 5.1-2.9v2.8zm0 6.2l-5.1 2.9-5.1-2.9v-2.8l5.1 2.9 5.1-2.9v2.8z"/>
-                </svg>
-              </div>
-              <div class="ext-3d-info">
-                <div class="ext-3d-name">TRIPO3D</div>
-                <div class="ext-3d-desc">Jelajahi model 3D interaktif — putar 360°, zoom</div>
-              </div>
-              <div class="ext-3d-arrow">→</div>
-            </a>
-
-            <!-- GOOGLE EARTH LINK -->
-            <a href="https://earth.google.com/web/@-5.47196674,105.32012804,2.41590831a,17837.30035841d,30y,0h,0t,0r/data=CgRCAggBMigKJgokCiAxTUlxTWY4Vk0wNXhkVC1TTzlvdGc0U1Y5Zl8xVmc3QSACOgMKATBCAggASggIv4n98AcQAQ?authuser=0"
-               target="_blank" rel="noopener noreferrer"
-               class="ext-3d-card">
-              <div class="ext-3d-logo" style="background:linear-gradient(135deg,#4285F4,#34A853)">
-                <svg viewBox="0 0 24 24" width="28" height="28" fill="white">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-                </svg>
-              </div>
-              <div class="ext-3d-info">
-                <div class="ext-3d-name">Google Earth Web</div>
-                <div class="ext-3d-desc">Lihat terrain 3D Kecamatan Panjang di Google Earth</div>
-              </div>
-              <div class="ext-3d-arrow">→</div>
-            </a>
-
-            <!-- GEOPORTAL BIG / DEMNAS LINK -->
-            <a href="https://tanahair.indonesia.go.id/portal-web/unduh/demnas"
-               target="_blank" rel="noopener noreferrer"
-               class="ext-3d-card">
-              <div class="ext-3d-logo" style="background:linear-gradient(135deg,#1D9E75,#0F6E56)">
-                <svg viewBox="0 0 24 24" width="28" height="28" fill="white">
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                </svg>
-              </div>
-              <div class="ext-3d-info">
-                <div class="ext-3d-name">Geoportal DEMNAS (BIG)</div>
-                <div class="ext-3d-desc">Data Elevasi Nasional — sumber DEM yang digunakan dalam penelitian ini</div>
-              </div>
-              <div class="ext-3d-arrow">→</div>
-            </a>
-
-          </div>
-          <div class="ext-3d-note">
-            ℹ️ Model 3D ini dibangun dari <strong>DEM DEMNAS 30m (BIG)</strong> yang divisualisasikan
-            dengan <strong>QGIS 3D Map View</strong> dan diwarnai berdasarkan probabilitas kerentanan
-            hasil pemodelan MaxEnt. Zona merah menunjukkan area dengan probabilitas longsor tertinggi.
+      <!-- Tautan 3: Geoportal DEMNAS -->
+      <a href="https://tanahair.indonesia.go.id/portal-web/unduh/demnas"
+         target="_blank" rel="noopener"
+         style="display:flex;align-items:center;gap:12px;padding:1rem 1.25rem;
+                background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);
+                border-radius:10px;text-decoration:none;transition:all 0.2s;
+                color:white"
+         onmouseover="this.style.background='rgba(239,159,39,0.15)';this.style.borderColor='rgba(239,159,39,0.4)'"
+         onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.borderColor='rgba(255,255,255,0.12)'">
+        <span style="font-size:1.8rem;flex-shrink:0">📡</span>
+        <div>
+          <div style="font-weight:600;font-size:14px">Geoportal DEMNAS (BIG)</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.6)">
+            Data Elevasi Nasional — sumber DEM penelitian →
           </div>
         </div>
+      </a>
+    </div>
 
-          <!-- Compass -->
-          <div class="compass3d" id="compass3d">
-            <svg width="50" height="50" viewBox="0 0 50 50">
-              <circle cx="25" cy="25" r="23" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="rgba(0,0,0,0.4)"/>
-              <text x="25" y="10" text-anchor="middle" fill="white" font-size="8" font-weight="bold">U</text>
-              <text x="25" y="45" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="7">S</text>
-              <text x="8" y="28" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="7">B</text>
-              <text x="42" y="28" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="7">T</text>
-              <polygon id="compass-needle" points="25,14 22,25 25,24 28,25" fill="#E24B4A"/>
-              <polygon points="25,36 22,25 25,26 28,25" fill="white" opacity="0.7"/>
-            </svg>
-          </div>
-        </div>
-
-        <!-- 
-          KETERANGAN: Bagian di bawah ini adalah keterangan cara mengintegrasikan 
-          file 3D nyata dari QGIS. Jika sudah memiliki file .obj atau .glb hasil 
-          ekspor QGIS2threejs / Blender, hapus komentar dan sesuaikan path-nya.
-          
-          Cara ekspor dari QGIS:
-          1. Install plugin QGIS2threejs
-          2. Buka plugin, pilih DEM layer + layer kerentanan
-          3. Export sebagai HTML atau ambil file .obj/.glb-nya
-          4. Simpan di folder assets/ dengan nama model-panjang.glb
-          5. Uncomment baris loadRealModel() di js/map3d.js
-        -->
+    <!-- LEGENDA WARNA -->
+    <div style="background:rgba(255,255,255,0.04);border-radius:10px;
+         padding:1rem 1.5rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:center">
+      <span style="color:rgba(255,255,255,0.5);font-size:12px;font-weight:600;
+            text-transform:uppercase;letter-spacing:.05em">Zona Kerentanan:</span>
+      <div style="display:flex;flex-wrap:wrap;gap:0.75rem">
+        <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:white">
+          <span style="width:14px;height:14px;border-radius:3px;background:#E24B4A;flex-shrink:0"></span>
+          Tinggi (0.75–1.00)
+        </span>
+        <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:white">
+          <span style="width:14px;height:14px;border-radius:3px;background:#EF9F27;flex-shrink:0"></span>
+          Menengah (0.50–0.75)
+        </span>
+        <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:white">
+          <span style="width:14px;height:14px;border-radius:3px;background:#378ADD;flex-shrink:0"></span>
+          Rendah (0.25–0.50)
+        </span>
+        <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:white">
+          <span style="width:14px;height:14px;border-radius:3px;background:#888780;flex-shrink:0"></span>
+          Sangat Rendah (0.00–0.25)
+        </span>
+      </div>
+    </div>
 
   </div>
-</section>
+</div>
+<!-- ============ AKHIR VIEWER 3D ============ -->
 
 <!-- ==========================================
      SECTION 4: METODE & DATA

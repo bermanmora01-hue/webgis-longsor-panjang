@@ -1019,3 +1019,442 @@ section[id] {
   .ext-3d-grid { grid-template-columns: 1fr; }
   .ext-3d-links { padding: 1rem; }
 }
+/* ============================================================
+   SOLUSI 3: RESPONSIF SEMPURNA — Laptop, Tablet, HP
+   SOLUSI 4: Galeri foto fix size
+   SOLUSI 5: Chart bar height fix
+   
+   CARA PAKAI: Tambahkan seluruh isi file ini 
+   ke BAGIAN PALING BAWAH file css/style.css Anda
+   (tepat sebelum baris paling akhir atau baris penutup)
+   ============================================================ */
+
+/* ============================================================
+   RESET DASAR RESPONSIF
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  overflow-x: hidden;        /* Cegah scroll horizontal */
+  width: 100%;
+  min-height: 100vh;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+/* ============================================================
+   NAVBAR — RESPONSIF SEMUA PLATFORM
+   ============================================================ */
+#navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: white;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.08);
+  height: 64px;
+}
+
+.nav-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Nav hamburger — muncul di tablet & HP */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  z-index: 1001;
+}
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #1D9E75;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+.hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; width: 0; }
+.hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Nav link list */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Scroll margin untuk semua section (agar tidak tertutup navbar) */
+section[id], div[id] {
+  scroll-margin-top: 70px;
+}
+
+/* ============================================================
+   CONTAINER — MAX WIDTH PER PLATFORM
+   ============================================================ */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ============================================================
+   SECTION PADDING — RESPONSIF
+   ============================================================ */
+.section { padding: 5rem 0; }
+
+/* ============================================================
+   TENTANG — two-col fix
+   ============================================================ */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* ============================================================
+   PETA INTERAKTIF — HEIGHT FIX PER PLATFORM
+   ============================================================ */
+.viewer-panel { width: 100%; }
+
+#map2d {
+  width: 100% !important;
+  height: 520px;
+  border-radius: 12px;
+  z-index: 1;
+  position: relative;
+}
+
+/* ============================================================
+   SOLUSI 4: GALERI FOTO — GRID FIX SIZE SERAGAM
+   ============================================================ */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);  /* 3 kolom selalu */
+  gap: 0.75rem;
+}
+
+/* Setiap item galeri — ukuran seragam */
+.photo-item {
+  position: relative;
+  width: 100%;
+  padding-top: 66.67%;          /* Rasio 3:2 — semua sama */
+  overflow: hidden;
+  border-radius: 10px;
+  background: #eee;
+  cursor: zoom-in;
+}
+
+.photo-item img,
+.photo-item .photo-placeholder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;            /* Crop tengah agar semua sama */
+  object-position: center;
+  transition: transform 0.3s ease;
+}
+
+.photo-item:hover img { transform: scale(1.05); }
+
+/* Placeholder saat foto belum ada */
+.photo-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0eb;
+  color: #888;
+  font-size: 13px;
+  text-align: center;
+  padding: 1rem;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+}
+
+/* ============================================================
+   SOLUSI 5: CHART BAR — HEIGHT FIX (tidak terlalu panjang)
+   ============================================================ */
+
+/* Kontainer chart — batasi tinggi maksimum */
+.chart-container {
+  position: relative;
+  width: 100%;
+}
+
+/* Donut chart — ukuran tetap kecil */
+.chart-container.donut {
+  height: 240px;
+  max-height: 240px;
+}
+
+/* Bar chart — fix height, tidak melar ke bawah */
+.chart-container.bar {
+  height: 260px;          /* ← Kunci: tinggi fixed, tidak auto */
+  max-height: 260px;
+  overflow: hidden;
+}
+
+/* Canvas chart — paksa ikut container */
+.chart-container canvas {
+  max-height: 100% !important;
+}
+
+/* Grid hasil — dua kolom sejajar */
+.hasil-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* ============================================================
+   MODEL 3D / VIDEO — Solusi video embed
+   ============================================================ */
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;           /* Rasio 16:9 */
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0d1520;
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ============================================================
+   DOWNLOAD MODAL — HAPUS LAPORAN RINGKAS
+   Modal hanya menampilkan 1 tombol (peta PDF)
+   ============================================================ */
+/* Tombol laporan ringkas disembunyikan via CSS sebagai fallback */
+.download-btn-laporan { display: none !important; }
+
+/* ============================================================
+   ██████████████████████████████████████████████████████████
+   BREAKPOINT LAPTOP (≤ 1024px)
+   ██████████████████████████████████████████████████████████
+   ============================================================ */
+@media (max-width: 1024px) {
+  .container { padding: 0 1.25rem; }
+  .section { padding: 4rem 0; }
+
+  /* Tentang: stack vertikal di layar kecil */
+  .two-col { grid-template-columns: 1fr; gap: 2rem; }
+
+  /* Peta lebih pendek di laptop kecil */
+  #map2d { height: 460px; }
+
+  /* Gallery tetap 3 kolom di laptop */
+  .photo-grid { grid-template-columns: repeat(3, 1fr); }
+
+  /* Chart bar sedikit lebih pendek */
+  .chart-container.bar { height: 220px; }
+
+  /* Stats grid: 2x2 di laptop kecil */
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Zone cards: 2 kolom */
+  .zone-cards { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ============================================================
+   ██████████████████████████████████████████████████████████
+   BREAKPOINT TABLET (≤ 768px)
+   ██████████████████████████████████████████████████████████
+   ============================================================ */
+@media (max-width: 768px) {
+  /* NAVBAR: tampilkan hamburger */
+  .hamburger { display: flex; }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    position: fixed;
+    top: 64px;
+    left: 0; right: 0;
+    background: white;
+    padding: 0.75rem 1.25rem 1.25rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    z-index: 998;
+    border-top: 1px solid #eee;
+    gap: 0.1rem;
+    max-height: calc(100vh - 64px);
+    overflow-y: auto;
+  }
+
+  .nav-links.open { display: flex; }
+
+  .nav-link {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 15px;
+  }
+
+  /* Konten hero */
+  .hero-title { font-size: clamp(1.6rem, 5vw, 2.5rem); }
+  .hero-subtitle { font-size: clamp(0.9rem, 2.5vw, 1.1rem); }
+  .hero-buttons { flex-direction: column; align-items: center; gap: 0.75rem; }
+
+  /* Stats: 2 kolom di tablet */
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+
+  /* Tentang: 1 kolom */
+  .two-col { grid-template-columns: 1fr; }
+
+  /* Peta */
+  #map2d { height: 380px; }
+
+  /* Layer panel lebih kecil di tablet */
+  .layer-panel { font-size: 13px; max-width: 200px; }
+
+  /* Gallery: 2 kolom di tablet */
+  .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+
+  /* Hasil grid: 1 kolom di tablet */
+  .hasil-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+
+  /* Chart bar */
+  .chart-container.bar { height: 220px; }
+  .chart-container.donut { height: 200px; }
+
+  /* Zone cards */
+  .zone-cards { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+
+  /* Mitigasi accordion */
+  .mitigasi-summary { font-size: 14px; padding: 1rem; }
+
+  /* Tim: 1 kolom */
+  .team-grid { grid-template-columns: 1fr; }
+  .team-advisors { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   ██████████████████████████████████████████████████████████
+   BREAKPOINT HP (≤ 480px)
+   ██████████████████████████████████████████████████████████
+   ============================================================ */
+@media (max-width: 480px) {
+  .container { padding: 0 1rem; }
+  .section { padding: 3rem 0; }
+
+  /* Hero lebih compact */
+  .hero-title { font-size: 1.55rem; line-height: 1.25; }
+  .hero-subtitle { font-size: 0.9rem; }
+
+  /* Stats: 1 kolom di HP kecil */
+  .stats-grid { grid-template-columns: 1fr; gap: 0.6rem; }
+  .stat-card { padding: 1rem; }
+
+  /* Peta lebih pendek di HP */
+  #map2d { height: 300px; }
+
+  /* Layer panel: collapse di HP */
+  .layer-panel {
+    font-size: 12px;
+    max-width: 160px;
+    max-height: 180px;
+    overflow-y: auto;
+  }
+
+  /* Gallery: 2 kolom di HP */
+  .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+
+  /* Chart lebih pendek */
+  .chart-container.bar   { height: 180px; }
+  .chart-container.donut { height: 180px; }
+
+  /* Zone cards: 1 kolom */
+  .zone-cards { grid-template-columns: 1fr; }
+
+  /* Section tag & header */
+  .section-header h2 { font-size: 1.5rem; }
+
+  /* Tim: 1 kolom */
+  .team-grid { grid-template-columns: 1fr; }
+  .team-card { max-width: 100%; }
+
+  /* Viewer toggle full width */
+  .viewer-toggle { flex-direction: column; }
+  .toggle-btn { width: 100%; }
+
+  /* Modal download */
+  #download-modal > div { padding: 1.5rem 1rem; margin: 0.5rem; }
+
+  /* Footer */
+  .footer-grid { grid-template-columns: 1fr; text-align: center; gap: 1.5rem; }
+}
+
+/* ============================================================
+   UTILITY — fix umum tambahan
+   ============================================================ */
+
+/* Pastikan peta Leaflet tidak overflow */
+.map-wrap, .leaflet-container {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Loader tidak terpotong di HP */
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Scroll top button — posisi aman */
+#scroll-top {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 900;
+}
+
+/* Tooltip — tidak terpotong di HP */
+#tooltip {
+  position: fixed;
+  z-index: 9000;
+  pointer-events: none;
+  max-width: min(280px, 90vw);
+  word-wrap: break-word;
+}
+
+/* Pastikan section mitigasi & tim terlihat */
+#mitigasi, #tim {
+  position: relative;
+  z-index: 1;
+}
+
+/* Prevent horizontal scroll global */
+.hero, .stats-strip, .section, footer {
+  overflow-x: hidden;
+}
+

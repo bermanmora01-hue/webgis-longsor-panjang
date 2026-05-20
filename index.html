@@ -321,7 +321,104 @@
     <div id="viewer-2d" class="viewer-panel fade-in">
       <div class="map-wrap">
         <div id="map2d"></div>
+<!-- Tombol toggle (hanya muncul ≤520px via CSS) -->
+<button
+  id="legend-toggle-btn"
+  onclick="toggleLegendMobile()"
+  aria-label="Tampilkan/Sembunyikan Legenda Peta">
+  <span>🗂</span>
+  <span>Legenda & Kontrol Layer</span>
+  <span id="legend-toggle-arrow">▼</span>
+</button>
 
+<!-- Panel legenda mobile -->
+<div id="legend-mobile-panel">
+
+  <!-- Judul -->
+  <div style="
+    font-weight: 700; font-size: 13px;
+    color: #1D9E75; margin-bottom: 10px;
+    text-transform: uppercase; letter-spacing: .05em;
+  ">Legenda Kerentanan Longsor</div>
+
+  <!-- Item Zona Tinggi -->
+  <div class="legend-item-mobile">
+    <span class="legend-dot" style="background:#E24B4A"></span>
+    <span class="legend-name">Tinggi</span>
+    <span class="legend-prob">0.75–1.00</span>
+  </div>
+
+  <!-- Item Zona Menengah -->
+  <div class="legend-item-mobile">
+    <span class="legend-dot" style="background:#EF9F27"></span>
+    <span class="legend-name">Menengah</span>
+    <span class="legend-prob">0.50–0.75</span>
+  </div>
+
+  <!-- Item Zona Rendah -->
+  <div class="legend-item-mobile">
+    <span class="legend-dot" style="background:#378ADD"></span>
+    <span class="legend-name">Rendah</span>
+    <span class="legend-prob">0.25–0.50</span>
+  </div>
+
+  <!-- Item Zona Sangat Rendah -->
+  <div class="legend-item-mobile">
+    <span class="legend-dot" style="background:#888780"></span>
+    <span class="legend-name">Sangat Rendah</span>
+    <span class="legend-prob">0.00–0.25</span>
+  </div>
+
+  <!-- Item Titik Longsor -->
+  <div class="legend-item-mobile">
+    <span style="
+      width:14px; height:14px; border-radius:50%;
+      background:#7F77DD; flex-shrink:0;
+    "></span>
+    <span class="legend-name">Titik Longsor (34 titik)</span>
+  </div>
+
+  <!-- Chip toggle layer (checkbox kompak) -->
+  <div class="map-checkboxes-mobile">
+    <div class="map-checkbox-chip checked"
+         style="color:#E24B4A;border-color:#E24B4A"
+         id="chip-tinggi"
+         onclick="toggleChip('tinggi','chip-tinggi')">
+      <span style="width:8px;height:8px;border-radius:2px;background:#E24B4A"></span>
+      Tinggi
+    </div>
+    <div class="map-checkbox-chip checked"
+         style="color:#EF9F27;border-color:#EF9F27"
+         id="chip-menengah"
+         onclick="toggleChip('menengah','chip-menengah')">
+      <span style="width:8px;height:8px;border-radius:2px;background:#EF9F27"></span>
+      Menengah
+    </div>
+    <div class="map-checkbox-chip checked"
+         style="color:#378ADD;border-color:#378ADD"
+         id="chip-rendah"
+         onclick="toggleChip('rendah','chip-rendah')">
+      <span style="width:8px;height:8px;border-radius:2px;background:#378ADD"></span>
+      Rendah
+    </div>
+    <div class="map-checkbox-chip checked"
+         style="color:#888780;border-color:#888780"
+         id="chip-sr"
+         onclick="toggleChip('sangat-rendah','chip-sr')">
+      <span style="width:8px;height:8px;border-radius:2px;background:#888780"></span>
+      Sgt. Rendah
+    </div>
+    <div class="map-checkbox-chip checked"
+         style="color:#7F77DD;border-color:#7F77DD"
+         id="chip-titik"
+         onclick="toggleChip('titik-longsor','chip-titik')">
+      <span style="width:8px;height:8px;border-radius:50%;background:#7F77DD"></span>
+      Titik Longsor
+    </div>
+  </div>
+
+</div>
+<!-- ============ AKHIR LEGENDA MOBILE ============ -->
         <!-- Layer control panel -->
         <div class="layer-panel" id="layer-panel">
           <div class="layer-panel-title">🗂 Kontrol Layer</div>

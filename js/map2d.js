@@ -111,12 +111,13 @@ function tryLoadKML() {
 
                 placemarks.forEach(pm => {
                     // ── Baca nama & data atribut dari KML ──
-                    const desa  = pm.querySelector('name');
-                    const area    = desa ? desa.textContent.trim() : 'Area';
-                    const zona   = getKMLData(pm, 'kelas') || detectKelasFromName(desa);
-                    const area    = getKMLData(pm, 'luas_km2') || '–';
-                    const rekomendasi     = getKMLData(pm, 'rekomendasi') || 'Lihat rekomendasi mitigasi.';
-                    const probabilitas = getKMLData(pm, 'prob') || '–';
+                    const nameEl  = pm.querySelector('name');
+                    const nama    = nameEl ? nameEl.textContent.trim() : 'Area';
+                    const kelas   = getKMLData(pm, 'kelas') || detectKelasFromName(nama);
+                    const luas    = getKMLData(pm, 'luas_ha') || '–';
+                    const rek     = getKMLData(pm, 'rekomendasi') || 'Lihat rekomendasi mitigasi.';
+                    const probMin = getKMLData(pm, 'prob_min') || '–';
+                    const probMax = getKMLData(pm, 'prob_max') || '–';
 
                     const kelasKey = kelas.toLowerCase().replace(/\s+/g, '-');
                     const color    = KELAS_COLOR[kelasKey] || KELAS_COLOR[kelas.toLowerCase()] || '#888780';
@@ -143,7 +144,7 @@ function tryLoadKML() {
                             fillColor: color, fillOpacity: 0.4
                         });
 
-                        poly.bindPopup(buildPopupHTML(DESA, Zona, Probabilitas, Area, Rekomendasi, color), { maxWidth: 290 });
+                        poly.bindPopup(buildPopupHTML(nama, kelas, probMin, probMax, luas, rek, color), { maxWidth: 290 });
                         poly.on('mouseover', function () { this.setStyle({ fillOpacity: 0.65, weight: 3.5 }); });
                         poly.on('mouseout',  function () { this.setStyle({ fillOpacity: 0.40, weight: 2.5 }); });
 

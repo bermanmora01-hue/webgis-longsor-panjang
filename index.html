@@ -406,20 +406,44 @@
      100% pasti tampil di semua device
      ============================================ -->
 <div id="viewer-3d" style="display:none">
-  <div style="max-width:900px;margin:0 auto">
+  <div style="
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 1.5rem;
+  padding-top: 56.25%;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+">
+  <iframe
+    src="https://www.youtube.com/embed/wqpxaVWqdoQ?rel=0&modestbranding=1&color=white&autoplay=0"
+    title="Animasi Model 3D Peta Kerentanan Longsor Kecamatan Panjang"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+    loading="lazy"
+    style="
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    "
+  ></iframe>
+</div>
 
-    <!-- VIDEO UTAMA — YouTube Embed -->
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/_ZKbLh4dnmY?si=WZMXWJc6pM1ksKEi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    <div class="video-wrapper" style="border-radius:16px;overflow:hidden;
-         box-shadow:0 16px 48px rgba(0,0,0,0.3);margin-bottom:1.5rem">
-      <iframe
-        id="youtube-3d"
-        src="https://www.youtube.com/embed/GANTI_DENGAN_ID_VIDEO_ANDA?rel=0&modestbranding=1&color=white"
-        title="Animasi 3D Model Kerentanan Longsor Kecamatan Panjang"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope"
-        allowfullscreen
-        loading="lazy"
-        style="position:absolute;inset:0;width:100%;height:100%;border:none">
+<!-- Caption video -->
+<p style="
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 1.5rem;
+  font-style: italic;
+">
+  🎬 Animasi 3D visualisasi zona kerentanan longsor Kecamatan Panjang ·
+  Dibuat menggunakan QGIS 3D Map View & DEM DEMNAS 30m
+</p>
       </iframe>
         </div>
       </div>

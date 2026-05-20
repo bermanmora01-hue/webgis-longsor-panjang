@@ -418,7 +418,7 @@
   box-shadow: 0 20px 60px rgba(0,0,0,0.5);
 ">
   <iframe
-    src="https://www.youtube.com/embed/wqpxaVWqdoQ?rel=0&modestbranding=1&color=white&autoplay=0"
+    src="https://www.youtube.com/embed/_ZKbLh4dnmY?si=QS6xOT8OlaszHolm"
     title="Animasi Model 3D Peta Kerentanan Longsor Kecamatan Panjang"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowfullscreen
@@ -450,103 +450,167 @@
     </div>
 
     <!-- INFO BAR -->
-    <div style="background:#1a2f45;border-radius:12px;padding:1rem 1.5rem;
-         display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;
-         flex-wrap:wrap">
-      <div style="color:#1D9E75;font-size:1.3rem">ℹ️</div>
-      <div style="color:rgba(255,255,255,0.85);font-size:13px;line-height:1.6;flex:1">
-        Model 3D dibangun dari <strong style="color:#E2C06A">DEM DEMNAS 30m (BIG)</strong>
-        divisualisasikan dengan <strong style="color:#E2C06A">QGIS 3D Map View</strong>
-        dan diwarnai berdasarkan probabilitas kerentanan MaxEnt.
-        <strong style="color:#E24B4A">Zona merah = probabilitas longsor tertinggi.</strong>
+    <div style="
+  background: #0d1520;
+  border-radius: 14px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.75rem;
+">
+  <!-- Judul blok -->
+  <div style="
+    grid-column: 1/-1;
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    margin-bottom: 4px;
+  ">🔗 Jelajahi Model 3D Interaktif</div>
+
+  <!-- Tautan 1: Tripo3D -->
+  <a href="https://studio.tripo3d.ai/3d-model/8b5ecad6-e89c-4446-9edf-7a4bde296fed?invite_code=BT80NS"
+     target="_blank" rel="noopener"
+     style="
+       display: flex; align-items: center; gap: 12px;
+       padding: 14px 16px;
+       background: rgba(255,255,255,0.06);
+       border: 1px solid rgba(255,255,255,0.12);
+       border-radius: 10px;
+       text-decoration: none;
+       transition: background .2s, border-color .2s;
+     "
+     onmouseover="this.style.background='rgba(29,158,117,0.18)';this.style.borderColor='rgba(29,158,117,0.5)'"
+     onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.borderColor='rgba(255,255,255,0.12)'">
+    <span style="font-size:1.8rem;flex-shrink:0">🌐</span>
+    <div>
+      <div style="font-weight:700;font-size:14px;color:#ffffff">TRIPO3D</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.55)">
+        Jelajahi model 3D interaktif — putar 360°, zoom →
       </div>
     </div>
+  </a>
 
-    <!-- TAUTAN EKSPLORASI 3D -->
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-         gap:0.75rem;margin-bottom:1rem">
-
-      <!-- Tautan 1: Sketchfab atau Tripo3D -->
-      <a href="https://studio.tripo3d.ai/3d-model/8b5ecad6-e89c-4446-9edf-7a4bde296fed?invite_code=BT80NS"
-         target="_blank" rel="noopener"
-         style="display:flex;align-items:center;gap:12px;padding:1rem 1.25rem;
-                background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);
-                border-radius:10px;text-decoration:none;transition:all 0.2s;
-                color:white"
-         onmouseover="this.style.background='rgba(29,158,117,0.15)';this.style.borderColor='rgba(29,158,117,0.4)'"
-         onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.borderColor='rgba(255,255,255,0.12)'">
-        <span style="font-size:1.8rem;flex-shrink:0">🌐</span>
-        <div>
-          <div style="font-weight:600;font-size:14px">Model 3D Interaktif</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.6)">
-            Putar 360°, zoom, dan jelajahi terrain →
-          </div>
-        </div>
-      </a>
-
-      <!-- Tautan 2: Google Earth Web -->
-      <a href=""https://earth.google.com/web/@-5.47196674,105.32012804,2.41590831a,17837.30035841d,30y,0h,0t,0r/data=CgRCAggBMigKJgokCiAxTUlxTWY4Vk0wNXhkVC1TTzlvdGc0U1Y5Zl8xVmc3QSACOgMKATBCAggASggIv4n98AcQAQ?authuser=0"
-         target="_blank" rel="noopener"
-         style="display:flex;align-items:center;gap:12px;padding:1rem 1.25rem;
-                background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);
-                border-radius:10px;text-decoration:none;transition:all 0.2s;
-                color:white"
-         onmouseover="this.style.background='rgba(55,138,221,0.15)';this.style.borderColor='rgba(55,138,221,0.4)'"
-         onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.borderColor='rgba(255,255,255,0.12)'">
-        <span style="font-size:1.8rem;flex-shrink:0">🌍</span>
-        <div>
-          <div style="font-weight:600;font-size:14px">Google Earth Web</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.6)">
-            Terrain 3D Kecamatan Panjang →
-          </div>
-        </div>
-      </a>
-
-      <!-- Tautan 3: Geoportal DEMNAS -->
-      <a href="https://tanahair.indonesia.go.id/portal-web/unduh/demnas"
-         target="_blank" rel="noopener"
-         style="display:flex;align-items:center;gap:12px;padding:1rem 1.25rem;
-                background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);
-                border-radius:10px;text-decoration:none;transition:all 0.2s;
-                color:white"
-         onmouseover="this.style.background='rgba(239,159,39,0.15)';this.style.borderColor='rgba(239,159,39,0.4)'"
-         onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.borderColor='rgba(255,255,255,0.12)'">
-        <span style="font-size:1.8rem;flex-shrink:0">📡</span>
-        <div>
-          <div style="font-weight:600;font-size:14px">Geoportal DEMNAS (BIG)</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.6)">
-            Data Elevasi Nasional — sumber DEM penelitian →
-          </div>
-        </div>
-      </a>
+  <!-- Tautan 2: Google Earth -->
+  <a href="https://earth.google.com/web/@-5.47196674,105.32012804,2.41590831a,17837.30035841d,30y,0h,0t,0r"
+     target="_blank" rel="noopener"
+     style="
+       display: flex; align-items: center; gap: 12px;
+       padding: 14px 16px;
+       background: rgba(255,255,255,0.06);
+       border: 1px solid rgba(255,255,255,0.12);
+       border-radius: 10px;
+       text-decoration: none;
+       transition: background .2s, border-color .2s;
+     "
+     onmouseover="this.style.background='rgba(59,130,246,0.18)';this.style.borderColor='rgba(59,130,246,0.5)'"
+     onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.borderColor='rgba(255,255,255,0.12)'">
+    <span style="font-size:1.8rem;flex-shrink:0">🌍</span>
+    <div>
+      <div style="font-weight:700;font-size:14px;color:#ffffff">Google Earth Web</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.55)">
+        Lihat terrain 3D Kecamatan Panjang di Google Earth →
+      </div>
     </div>
+  </a>
+
+  <!-- Tautan 3: Geoportal DEMNAS -->
+  <a href="https://tanahair.indonesia.go.id/portal-web/unduh/demnas"
+     target="_blank" rel="noopener"
+     style="
+       display: flex; align-items: center; gap: 12px;
+       padding: 14px 16px;
+       background: rgba(255,255,255,0.06);
+       border: 1px solid rgba(255,255,255,0.12);
+       border-radius: 10px;
+       text-decoration: none;
+       transition: background .2s, border-color .2s;
+     "
+     onmouseover="this.style.background='rgba(239,159,39,0.18)';this.style.borderColor='rgba(239,159,39,0.5)'"
+     onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.borderColor='rgba(255,255,255,0.12)'">
+    <span style="font-size:1.8rem;flex-shrink:0">📡</span>
+    <div>
+      <div style="font-weight:700;font-size:14px;color:#ffffff">Geoportal DEMNAS (BIG)</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.55)">
+        Data Elevasi Nasional — sumber DEM penelitian →
+      </div>
+    </div>
+  </a>
+</div>
 
     <!-- LEGENDA WARNA -->
-    <div style="background:rgba(255,255,255,0.04);border-radius:10px;
-         padding:1rem 1.5rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:center">
-      <span style="color:rgba(255,255,255,0.5);font-size:12px;font-weight:600;
-            text-transform:uppercase;letter-spacing:.05em">Zona Kerentanan:</span>
-      <div style="display:flex;flex-wrap:wrap;gap:0.75rem">
-        <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:white">
-          <span style="width:14px;height:14px;border-radius:3px;background:#E24B4A;flex-shrink:0"></span>
-          Tinggi (0.75–1.00)
-        </span>
-        <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:white">
-          <span style="width:14px;height:14px;border-radius:3px;background:#EF9F27;flex-shrink:0"></span>
-          Menengah (0.50–0.75)
-        </span>
-        <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:white">
-          <span style="width:14px;height:14px;border-radius:3px;background:#378ADD;flex-shrink:0"></span>
-          Rendah (0.25–0.50)
-        </span>
-        <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:white">
-          <span style="width:14px;height:14px;border-radius:3px;background:#888780;flex-shrink:0"></span>
-          Sangat Rendah (0.00–0.25)
-        </span>
-      </div>
-    </div>
+    <div style="
+  background: #0d1520;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  align-items: center;
+  margin-bottom: 1rem;
+">
+  <span style="
+    color: rgba(255,255,255,0.4);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    width: 100%;
+  ">Zona Kerentanan:</span>
 
-  </div>
+  <!-- Zona Tinggi -->
+  <span style="
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 13px; color: #ffffff; font-weight: 500;
+  ">
+    <span style="
+      width: 16px; height: 16px; border-radius: 4px;
+      background: #E24B4A; flex-shrink: 0;
+      box-shadow: 0 0 8px rgba(226,75,74,0.5);
+    "></span>
+    Tinggi (0.75–1.00)
+  </span>
+
+  <!-- Zona Menengah -->
+  <span style="
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 13px; color: #ffffff; font-weight: 500;
+  ">
+    <span style="
+      width: 16px; height: 16px; border-radius: 4px;
+      background: #EF9F27; flex-shrink: 0;
+      box-shadow: 0 0 8px rgba(239,159,39,0.5);
+    "></span>
+    Menengah (0.50–0.75)
+  </span>
+
+  <!-- Zona Rendah -->
+  <span style="
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 13px; color: #ffffff; font-weight: 500;
+  ">
+    <span style="
+      width: 16px; height: 16px; border-radius: 4px;
+      background: #378ADD; flex-shrink: 0;
+      box-shadow: 0 0 8px rgba(55,138,221,0.5);
+    "></span>
+    Rendah (0.25–0.50)
+  </span>
+
+  <!-- Zona Sangat Rendah -->
+  <span style="
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 13px; color: #ffffff; font-weight: 500;
+  ">
+    <span style="
+      width: 16px; height: 16px; border-radius: 4px;
+      background: #888780; flex-shrink: 0;
+    "></span>
+    Sangat Rendah (0.00–0.25)
+  </span>
 </div>
 <!-- ============ AKHIR VIEWER 3D ============ -->
 

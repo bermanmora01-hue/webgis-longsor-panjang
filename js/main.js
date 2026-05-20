@@ -184,6 +184,28 @@ document.addEventListener('click', (e) => {
         document.body.appendChild(lb);
     }
 });
+// ── Toggle Legenda Mobile ───────────────────────────────────
+window.toggleLegendMobile = function() {
+  const panel  = document.getElementById('legend-mobile-panel');
+  const btn    = document.getElementById('legend-toggle-btn');
+  const arrow  = document.getElementById('legend-toggle-arrow');
+  if (!panel) return;
+  const isOpen = panel.classList.contains('open');
+  panel.classList.toggle('open', !isOpen);
+  btn?.classList.toggle('open', !isOpen);
+  if (arrow) arrow.textContent = isOpen ? '▼' : '▲';
+};
 
+// ── Toggle Layer via Chip (Versi Mobile) ────────────────────
+window.toggleChip = function(layerKey, chipId) {
+  const chip = document.getElementById(chipId);
+  if (!chip) return;
+  const isChecked = chip.classList.contains('checked');
+  chip.classList.toggle('checked', !isChecked);
+  // Panggil fungsi toggleLayer dari map2d.js
+  if (typeof toggleLayer === 'function') {
+    toggleLayer(layerKey, !isChecked);
+  }
+};
 // ── NAVBAR: Highlight tombol "Unduh Peta" ──────────────────
 // Tampilkan hero download button dengan style yang mencolok saat scroll

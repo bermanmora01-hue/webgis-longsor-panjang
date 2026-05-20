@@ -1491,3 +1491,129 @@ section[id], div[id] {
   padding: 4px 10px;
   box-shadow: none;
 }
+/* Tombol toggle legenda — hanya muncul di HP */
+#legend-toggle-btn {
+  display: none; /* tersembunyi di desktop */
+}
+
+/* Panel bawah peta (legenda mobile) — tersembunyi di desktop */
+#legend-mobile-panel {
+  display: none;
+}
+
+/* ── HP SAJA (layar ≤ 520px) ── */
+@media (max-width: 520px) {
+
+  /* Sembunyikan layer panel absolute yang menimpa peta */
+  .layer-panel,
+  .map-layer-control,
+  [class*="layer-panel"],
+  [class*="control-panel"] {
+    display: none !important;
+  }
+
+  /* Peta full-width tanpa panel menimpa */
+  #map2d {
+    height: 300px !important;
+    width: 100% !important;
+    border-radius: 10px !important;
+    z-index: 1 !important;
+  }
+
+  /* Tombol toggle legenda — muncul di bawah peta */
+  #legend-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    background: white;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1D9E75;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  #legend-toggle-btn:hover {
+    background: #f0fdf4;
+  }
+  #legend-toggle-btn.open {
+    background: #f0fdf4;
+    border-color: #1D9E75;
+  }
+
+  /* Panel legenda mobile — muncul di bawah tombol */
+  #legend-mobile-panel {
+    display: none;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px;
+    margin-top: 8px;
+    font-size: 13px;
+  }
+  #legend-mobile-panel.open {
+    display: block;
+  }
+
+  /* Item legenda */
+  .legend-item-mobile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .legend-item-mobile:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .legend-dot {
+    width: 14px; height: 14px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+  .legend-name {
+    font-weight: 600;
+    color: #1e293b;
+    flex: 1;
+  }
+  .legend-prob {
+    font-size: 11px;
+    color: #64748b;
+    font-family: 'Courier New', monospace;
+    background: #f8fafc;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  /* Checkbox layer kontrol — tampilkan secara horizontal compact */
+  .map-checkboxes-mobile {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #f1f5f9;
+  }
+  .map-checkbox-chip {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    border: 1.5px solid;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    transition: opacity .15s;
+  }
+  .map-checkbox-chip.checked { opacity: 1; }
+  .map-checkbox-chip:not(.checked) { opacity: .45; }
+}
